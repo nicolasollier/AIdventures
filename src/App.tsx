@@ -1,18 +1,22 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
+import Header from "./components/layout/Header";
+import Chatbox from "./components/Chatbox";
 
 function App() {
   return (
     <Box
+      position={"relative"}
       display="flex" 
       justifyContent="center"
       alignItems="center"
       flexDirection="column"
-      bg="gray.800" 
+      bg="gray.900" 
       color="white" 
       minHeight="100vh" 
       fontFamily="monospace"
       >
-        <Text fontSize="5xl">AIdventures</Text>
+        <Header />
+        <Chatbox />
     </Box>
   );
 }

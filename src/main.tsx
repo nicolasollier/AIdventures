@@ -1,16 +1,21 @@
-//dependencies
+//Dependencies
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 
-//styles
+//Contexts
+import { ConversationProvider } from './contexts/ConversationContext';
+
+//Styles
 import { ChakraProvider } from '@chakra-ui/react'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ChakraProvider>
-      <App />
+      <ConversationProvider>
+        <App />
+      </ConversationProvider>
     </ChakraProvider>
   </React.StrictMode>
 );
