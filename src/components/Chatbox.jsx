@@ -23,9 +23,10 @@ const Chatbox = () => {
       justifyContent={"center"}
       alignItems={"center"}
       width={"100%"}
+      flex={1}
       overflowY={"auto"}
-      py={"6"}
-      px={"12"}
+      py={[3, 6]}
+      px={[6, 12]}
     >
       {isLoading ? (
         <Box
@@ -33,6 +34,8 @@ const Chatbox = () => {
           justifyContent="center"
           alignItems="center"
           height="100%"
+          width={"100%"}
+          flex={1}
         >
           <Spinner
             size="xl"
@@ -46,17 +49,19 @@ const Chatbox = () => {
         conversation
           .filter((message) => message.role !== "system")
           .map((message, index) => (
-            <Box key={index} mb={4}>
-              <Text mb={2}>{message.content}</Text>
+            <Box key={index} mb={4} maxWidth={["100%", "100%", "80%"]}>
+              <Text mb={2} fontSize={["xs", "sm", "md"]}>
+                {message.content}
+              </Text>
               {message.options && message.options.length > 0 && (
-                <Box display={"flex"} flexDirection={"column"} mt={24}>
+                <Box display={"flex"} flexDirection={"column"} mt={[8, 12, 24]}>
                   {message.options.map((option, optionIndex) => (
                     <Button
                       onClick={() => handleOptionClick(option)}
                       key={optionIndex}
                       colorScheme="gray"
                       variant="outline"
-                      fontSize="sm"
+                      fontSize={["xs", "xs", "sm"]}
                       fontWeight="normal"
                       color="white"
                       borderColor="gray.700"
@@ -64,6 +69,12 @@ const Chatbox = () => {
                       p={4}
                       mr={2}
                       mb={2}
+                      whiteSpace="normal"
+                      width={"100%"}
+                      minHeight="auto"
+                      height="auto" 
+                      boxSizing="border-box"
+                      overflow="hidden"
                     >
                       {option}
                     </Button>
