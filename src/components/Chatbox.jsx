@@ -17,10 +17,6 @@ const Chatbox = () => {
     initConversation(setConversation).then(() => setIsLoading(false));
   }, []);
 
-  useEffect(() => {
-    initConversation(setConversation);
-  }, []);
-
   return (
     <Box
       display={"flex"}
