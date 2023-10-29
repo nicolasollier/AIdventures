@@ -25,7 +25,7 @@ const ActionBar = ({
         <Button
           key={index}
           onClick={() => handleOptionClick(option)}
-          fontSize={"sm"}
+          fontSize={"xs"}
           color={"white"}
           bg={"gray.700"}
           variant="solid"
@@ -50,7 +50,7 @@ const ActionBar = ({
       maxWidth={"1440px"}
       bottom={0}
       position={"fixed"}
-      bg={"gray.800"}
+      bg={"gray.900"}
       p={8}
     >
       {isLoading ? (

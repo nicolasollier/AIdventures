@@ -47,7 +47,9 @@ const Chatbox = () => {
             >
               {message.role !== "user" && <Spacer />}
               <Box
-                p={3}
+                maxW={"75%"}
+                py={4}
+                px={6}
                 borderRadius={5}
                 bgColor={message.role === "user" ? "gray.700" : "gray.800"}
               >
