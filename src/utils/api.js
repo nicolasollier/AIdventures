@@ -1,5 +1,4 @@
 import axios from "axios";
-import { cleanConversation } from "../services/cleanConversation";
 import { conversation } from "../services/conversation";
 
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
@@ -19,33 +18,9 @@ export const initConversation = async (setConversation) => {
       messages: conversation,
     });
 
-    const messageText = response.data.choices[0].message.content;
+    const newMessage = response.data.choices[0].message;
+    const updatedConversation = [...conversation, newMessage];
 
-    const optionsMatches = messageText.match(
-      /option\s?\d+:\s?.+?(?=option\s?\d+:|$)/gis
-    );
-
-    let content, options;
-
-    if (optionsMatches && optionsMatches.length) {
-      content = messageText
-        .substring(0, messageText.indexOf(optionsMatches[0]))
-        .trim();
-      options = optionsMatches.map((opt) =>
-        opt.split(":")[1].replace(/"/g, "").trim()
-      );
-    } else {
-      content = messageText;
-      options = [];
-    }
-
-    const updatedMessage = {
-      role: "assistant",
-      content,
-      options,
-    };
-
-    const updatedConversation = [...conversation, updatedMessage];
     setConversation(updatedConversation);
   } catch (error) {
     console.error(error);
@@ -59,7 +34,6 @@ export const updateConversation = async (
   setConversation
 ) => {
   try {
-    currentConversation = cleanConversation(currentConversation);
     currentConversation = [
       ...currentConversation,
       { role: "user", content: userChoice },
@@ -70,33 +44,9 @@ export const updateConversation = async (
       messages: currentConversation,
     });
 
-    const messageText = response.data.choices[0].message.content;
+    const newMessage = response.data.choices[0].message;
+    const updatedConversation = [...currentConversation, newMessage];
 
-    const optionsMatches = messageText.match(
-      /option\s?\d+:\s?.+?(?=option\s?\d+:|$)/gis
-    );
-
-    let content, options;
-
-    if (optionsMatches && optionsMatches.length) {
-      content = messageText
-        .substring(0, messageText.indexOf(optionsMatches[0]))
-        .trim();
-      options = optionsMatches.map((opt) =>
-        opt.split(":")[1].replace(/"/g, "").trim()
-      );
-    } else {
-      content = messageText;
-      options = [];
-    }
-
-    const updatedMessage = {
-      role: "assistant",
-      content,
-      options,
-    };
-
-    const updatedConversation = [...currentConversation, updatedMessage];
     setConversation(updatedConversation);
   } catch (error) {
     console.error(error);

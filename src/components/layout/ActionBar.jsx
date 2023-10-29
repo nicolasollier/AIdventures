@@ -14,14 +14,11 @@ const ActionBar = ({
     );
   }
 
-  const renderOptions = () => {
-    const assistantMessage = conversation
-      .slice()
-      .reverse()
-      .find((message) => message.role === "assistant");
+  const options = ["Option 1", "Option 2", "Option 3"];
 
-    if (assistantMessage && assistantMessage.options) {
-      return assistantMessage.options.map((option, index) => (
+  const renderOptions = () => {
+    if (options && options.length) {
+      return options.map((option, index) => (
         <Button
           key={index}
           onClick={() => handleOptionClick(option)}
