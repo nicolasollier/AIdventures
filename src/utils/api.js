@@ -1,4 +1,5 @@
 import axios from "axios";
+import { cleanConversation } from "../services/cleanConversation";
 import { conversation } from "../services/conversation";
 
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
@@ -25,10 +26,14 @@ export const initConversation = async (setConversation) => {
     );
 
     let content, options;
-    
+
     if (optionsMatches && optionsMatches.length) {
-      content = messageText.substring(0, messageText.indexOf(optionsMatches[0])).trim();
-      options = optionsMatches.map((opt) => opt.split(":")[1].replace(/"/g, '').trim());
+      content = messageText
+        .substring(0, messageText.indexOf(optionsMatches[0]))
+        .trim();
+      options = optionsMatches.map((opt) =>
+        opt.split(":")[1].replace(/"/g, "").trim()
+      );
     } else {
       content = messageText;
       options = [];
@@ -42,26 +47,29 @@ export const initConversation = async (setConversation) => {
 
     const updatedConversation = [...conversation, updatedMessage];
     setConversation(updatedConversation);
-
   } catch (error) {
     console.error(error);
     return "Error while initializing conversation";
   }
 };
 
-export const updateConversation = async (userChoice, setConversation) => {
+export const updateConversation = async (
+  userChoice,
+  currentConversation,
+  setConversation
+) => {
   try {
+    currentConversation = cleanConversation(currentConversation);
+    currentConversation = [
+      ...currentConversation,
+      { role: "user", content: userChoice },
+    ];
+
     const response = await openai.post("", {
       model: "gpt-3.5-turbo",
-      messages: [
-        ...conversation,
-        {
-          role: "user",
-          content: userChoice,
-        }
-      ],
+      messages: currentConversation,
     });
-    
+
     const messageText = response.data.choices[0].message.content;
 
     const optionsMatches = messageText.match(
@@ -69,10 +77,14 @@ export const updateConversation = async (userChoice, setConversation) => {
     );
 
     let content, options;
-    
+
     if (optionsMatches && optionsMatches.length) {
-      content = messageText.substring(0, messageText.indexOf(optionsMatches[0])).trim();
-      options = optionsMatches.map((opt) => opt.split(":")[1].replace(/"/g, '').trim());
+      content = messageText
+        .substring(0, messageText.indexOf(optionsMatches[0]))
+        .trim();
+      options = optionsMatches.map((opt) =>
+        opt.split(":")[1].replace(/"/g, "").trim()
+      );
     } else {
       content = messageText;
       options = [];
@@ -84,11 +96,10 @@ export const updateConversation = async (userChoice, setConversation) => {
       options,
     };
 
-    const updatedConversation = [...conversation, updatedMessage];
+    const updatedConversation = [...currentConversation, updatedMessage];
     setConversation(updatedConversation);
-
   } catch (error) {
     console.error(error);
-    return "Error while updating conversation"
+    return "Error while updating conversation";
   }
-}
+};
