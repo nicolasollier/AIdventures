@@ -14,7 +14,6 @@ function App() {
       color="white" 
       minHeight="100vh" 
       fontFamily="monospace"
-      px={"8"}
       >
         <Header />
         <Chatbox />
