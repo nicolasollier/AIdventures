@@ -47,6 +47,7 @@ const ActionBar = ({
       display={"flex"}
       flexDirection={"column"}
       width={"100%"}
+      maxWidth={"1440px"}
       bottom={0}
       position={"fixed"}
       bg={"gray.800"}
