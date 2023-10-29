@@ -27,10 +27,11 @@ const Chatbox = () => {
       alignItems={"center"}
       width={"100%"}
       maxW={"1440px"}
-      height={"100%"}
       flex={1}
       overflowY={"auto"}
-      py={[3, 6]}
+      mb={24}
+      pt={[3, 6]}
+      pb={[12, 24]}
       px={[6, 12]}
     >
       <VStack align="start" spacing={4} width="full">
