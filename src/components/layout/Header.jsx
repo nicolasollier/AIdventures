@@ -8,10 +8,9 @@ const Header = () => {
       position={"sticky"}
       top={0}
       p={"6"}
-      borderBottom={"solid 1px"}
-      borderBottomColor={"gray.700"}
       boxShadow="2xl"
       bgColor={"gray.900"}
+      bgBlendMode={"luminosity"}
     >
       <Text fontSize={"xl"}>AIdventures</Text>
     </Box>
