@@ -24,8 +24,8 @@ Exemple 1:
 ["option 1": "Prendre la lettre", "option 2": "Chasser le corbeau", "option 3": "Continuer sans s'arrêter"];
 
 Exemple 2:
-"Lors d'une marche à travers une forêt dense, un corbeau noir se pose devant vous, portant une lettre."
-["option 1": "Prendre la lettre", "option 2": "Chasser le corbeau", "option 3": "Continuer sans s'arrêter"];
+"Lors d'une promenade au clair de lune près d'un lac, une chouette blanche se pose sur une branche à proximité, tenant dans ses serres un pendentif brillant."
+["option 1": "Tenter de prendre le pendentif", "option 2": "Observer la chouette sans bouger", "option 3": "Poursuivre la promenade en l'ignorant"];
 `;
 
 export let conversation = [{ role: "system", content: contextPrompt }];
@@ -37,6 +37,7 @@ export const extractOptions = (message) => {
     /"option \d+":\s*"([^"]+)"/g,
     /"Option \d+":\s*"([^"]+)"/g,
     /"Options \d+":\s*"([^"]+)"/g,
+    /"Option \d+: ([^"]+)"/g,
   ];
 
   for (const regex of regexPatterns) {

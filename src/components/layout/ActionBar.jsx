@@ -25,7 +25,7 @@ const ActionBar = ({
         return (
           <Button
             key={index}
-            onClick={() => handleOptionClick(option)}
+            onClick={() => handleOptionClick(extractedText)}
             fontSize={"xs"}
             color={"white"}
             bg={"gray.700"}

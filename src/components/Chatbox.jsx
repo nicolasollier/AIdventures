@@ -5,13 +5,16 @@ import { useEffect, useState, useRef } from "react";
 import { useConversation } from "../hooks/useConversation";
 
 const Chatbox = () => {
-  const { conversation, setConversation, options, setOptions } = useConversation();
+  const { conversation, setConversation, options, setOptions } =
+    useConversation();
   const [isLoading, setIsLoading] = useState(true);
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
     setIsLoading(true);
-    initConversation(setConversation, setOptions).then(() => setIsLoading(false));
+    initConversation(setConversation, setOptions).then(() =>
+      setIsLoading(false)
+    );
   }, []);
 
   useEffect(() => {
@@ -54,11 +57,10 @@ const Chatbox = () => {
                 borderRadius={5}
                 bgColor={message.role === "user" ? "gray.700" : "gray.800"}
               >
-                <Text
-                  fontSize={["xs", "sm"]}
-                  color="white"
-                >
-                  {message.content}
+                <Text fontSize={["xs", "sm"]} color="white">
+                  {message.role === "user"
+                    ? "Vous: " + message.content
+                    : message.content}
                 </Text>
               </Box>
               {message.role === "user" && <Spacer />}
