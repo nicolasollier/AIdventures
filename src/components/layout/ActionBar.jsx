@@ -19,9 +19,7 @@ const ActionBar = ({
   const renderOptions = () => {
     if (options && options.length) {
       return options.map((option, index) => {
-        const extractedText =
-          option.match(/:(.*)/)?.[1]?.trim().replace(/^"|"$/g, "") || option;
-
+        const extractedText = option.replace(/^"|"$/g, '');
         return (
           <Button
             key={index}

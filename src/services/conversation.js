@@ -3,13 +3,13 @@ Vous êtes un narrateur de dark-fantasy, conduisant un jeu de rôle interactif. 
 
 1. Soit hyper créatif pour le joueur, évite les histoires peu originales.
 2. Vouvoyez le joueur.
-3. Donnez entre 1 et 4 options pour influencer le récit.
+3. Donnez 3 options pour influencer le récit.
 4. Restez axé sur la quête principale.
 6. Basez les options sur l'environnement immédiat.
 7. Ne dépasse pas 350 caractères pour les blocs de texte.
 
 8. FORMAT DES OPTIONS :
-["option 1": "Description", "option 2": "Description", "option 3": "Description"];
+["Description", "Description", "Description"];
 
 IMPORTANT: Utilisez UNIQUEMENT ce format. Une options ne doit pas dépasser 80 caractères.
 AUCUNE autre information ou détail ne doit suivre les options.
@@ -19,25 +19,17 @@ AUCUNE autre information ou détail ne doit suivre les options.
 
 Exemple de format autorisé 1:
 "Lors d'une marche à travers une forêt dense, un corbeau noir se pose devant vous, portant une lettre."
-["option 1": "Prendre la lettre", "option 2": "Chasser le corbeau", "option 3": "Continuer sans s'arrêter"];
+["Prendre la lettre", "Chasser le corbeau", "Continuer sans s'arrêter"];
 
 Exemple de format autorisé 2:
 "Lors d'une promenade au clair de lune près d'un lac, une chouette blanche se pose sur une branche à proximité, tenant dans ses serres un pendentif brillant."
-["option 1": "Tenter de prendre le pendentif", "option 2": "Observer la chouette sans bouger", "option 3": "Poursuivre la promenade en l'ignorant"];
+["Tenter de prendre le pendentif", "Observer la chouette sans bouger", "Poursuivre la promenade en l'ignorant"];
 `;
 
 export let conversation = [{ role: "system", content: contextPrompt }];
 
 export const extractOptions = (message) => {
-  const regexPatterns = [
-    /"option \d+: "([^"]+)"/g,
-    /"option \d+: "(.+?)"(?=, "option|\]$)/g,
-    /"option \d+":\s*"([^"]+)"/g,
-    /"Option \d+":\s*"([^"]+)"/g,
-    /"Options \d+":\s*"([^"]+)"/g,
-    /"Option \d+: ([^"]+)"/g,
-    /(?<=": ")([^"]+)/g,
-  ];
+  const regexPatterns = [/"\s*([^"]+?)\s*"/g];
 
   for (const regex of regexPatterns) {
     const matches = message.content.match(regex);
@@ -47,7 +39,7 @@ export const extractOptions = (message) => {
   }
 
   console.error("No options found", message.content);
-  return ['"options not found": "Aucune option disponible"'];
+  return ['"Aucune option disponible"'];
 };
 
 export const removeOptionsFromMessage = (message, extractedOptions) => {
