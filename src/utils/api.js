@@ -43,6 +43,7 @@ export const updateConversation = async (
     if (userChoice === "Aucune option disponible") {
       currentConversation = [
         ...currentConversation,
+        { role: "user", content: "Aucune option disponible"},
         {
           role: "system",
           content: `Tu viens de répondre au mauvais format. Répond moi comme ceci:
@@ -58,7 +59,7 @@ export const updateConversation = async (
       ];
     }
 
-    const historyLength = 10;
+    const historyLength = 20;
 
     if (currentConversation.length > historyLength) {
         currentConversation = [currentConversation[0]].concat(currentConversation.slice(-(historyLength-1)));

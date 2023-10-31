@@ -26,6 +26,8 @@ Exemple AUTORISE 1:
 Exemple AUTORISE 2:
 "Lors d'une promenade au clair de lune près d'un lac, une chouette blanche se pose sur une branche à proximité, tenant dans ses serres un pendentif brillant."
 ["option 1": "Tenter de prendre le pendentif", "option 2": "Observer la chouette sans bouger", "option 3": "Poursuivre la promenade en l'ignorant"];
+
+12. Si c'est la fin de la partie, écrivez "FIN" dans le bloc de texte.
 `;
 
 export let conversation = [{ role: "system", content: contextPrompt }];
