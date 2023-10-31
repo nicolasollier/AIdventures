@@ -11,7 +11,7 @@ Vous êtes un narrateur de dark-fantasy, conduisant un jeu de rôle interactif. 
 8. Ne dépasse pas 350 caractères pour les blocs de texte.
 
 9. FORMAT DES OPTIONS :
-const options = ["option 1: "Description", "option 2: "Description", "option 3: "Description"];
+["option 1: "Description", "option 2: "Description", "option 3: "Description"];
 
 IMPORTANT: Utilisez UNIQUEMENT ce format. Une options ne doit pas dépasser 80 caractères.
 AUCUNE autre information ou détail ne doit suivre les options.
@@ -19,9 +19,32 @@ AUCUNE autre information ou détail ne doit suivre les options.
 10. N'ajoutez aucun détail après les options.
 11. Acceptez que l'échec est une option enrichissante.
 
-Exemple :
+Exemple 1:
 "Lors d'une marche à travers une forêt dense, un corbeau noir se pose devant vous, portant une lettre."
-const options = ["option 1: "Prendre la lettre", "option 2: "Chasser le corbeau", "option 3: "Continuer sans s'arrêter"];
+["option 1: "Prendre la lettre", "option 2: "Chasser le corbeau", "option 3: "Continuer sans s'arrêter"];
+
+Exemple 2:
+"Lors d'une marche à travers une forêt dense, un corbeau noir se pose devant vous, portant une lettre."
+["option 1: "Prendre la lettre", "option 2: "Chasser le corbeau", "option 3: "Continuer sans s'arrêter"];
 `;
 
 export let conversation = [{ role: "system", content: contextPrompt }];
+
+export const extractOptions = (message) => {
+  const regexPatterns = [
+    /"Option \d+: [^"]+"/g,
+    /Options\s*:\s*(\d+\.\s*[^.]+\.)/g,
+    /"option \d+: "([^"]+)"/g,
+    /"option \d+: "(.+?)"(?=, "option|\]$)/g
+  ];
+
+  for (const regex of regexPatterns) {
+    const matches = message.content.match(regex);
+    if (matches) {
+      return matches;
+    }
+  }
+
+  console.error("No options found");
+  return [];
+}

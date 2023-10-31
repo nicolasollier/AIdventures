@@ -5,13 +5,13 @@ import { useEffect, useState, useRef } from "react";
 import { useConversation } from "../hooks/useConversation";
 
 const Chatbox = () => {
-  const { conversation, setConversation } = useConversation();
+  const { conversation, setConversation, options, setOptions } = useConversation();
   const [isLoading, setIsLoading] = useState(true);
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
     setIsLoading(true);
-    initConversation(setConversation).then(() => setIsLoading(false));
+    initConversation(setConversation, setOptions).then(() => setIsLoading(false));
   }, []);
 
   useEffect(() => {
@@ -72,6 +72,8 @@ const Chatbox = () => {
         setIsLoading={setIsLoading}
         conversation={conversation}
         setConversation={setConversation}
+        options={options}
+        setOptions={setOptions}
       />
     </Box>
   );

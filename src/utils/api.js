@@ -1,5 +1,5 @@
 import axios from "axios";
-import { conversation } from "../services/conversation";
+import { conversation, extractOptions } from "../services/conversation";
 
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 const OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
@@ -11,7 +11,7 @@ const openai = axios.create({
   },
 });
 
-export const initConversation = async (setConversation) => {
+export const initConversation = async (setConversation, setOptions) => {
   try {
     const response = await openai.post("", {
       model: "gpt-3.5-turbo",
@@ -21,6 +21,7 @@ export const initConversation = async (setConversation) => {
     const newMessage = response.data.choices[0].message;
     const updatedConversation = [...conversation, newMessage];
 
+    setOptions(extractOptions(newMessage));
     setConversation(updatedConversation);
   } catch (error) {
     console.error(error);
@@ -31,7 +32,8 @@ export const initConversation = async (setConversation) => {
 export const updateConversation = async (
   userChoice,
   currentConversation,
-  setConversation
+  setConversation,
+  setOptions,
 ) => {
   try {
     currentConversation = [
@@ -47,6 +49,7 @@ export const updateConversation = async (
     const newMessage = response.data.choices[0].message;
     const updatedConversation = [...currentConversation, newMessage];
 
+    setOptions(extractOptions(newMessage));
     setConversation(updatedConversation);
   } catch (error) {
     console.error(error);
