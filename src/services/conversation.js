@@ -46,7 +46,7 @@ export const extractOptions = (message) => {
     }
   }
 
-  console.error("No options found");
+  console.error("No options found", message.content);
   return [];
 }
 
