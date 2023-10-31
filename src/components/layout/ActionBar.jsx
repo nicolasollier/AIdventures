@@ -59,7 +59,7 @@ const ActionBar = ({
         <Spinner
           thickness="4px"
           speed="0.65s"
-          emptyColor="gray.700"
+          emptyColor="gray.300"
           color="white"
           size="md"
         />
