@@ -1,5 +1,5 @@
 import axios from "axios";
-import { conversation, extractOptions } from "../services/conversation";
+import { conversation, extractOptions, removeOptionsFromMessage } from "../services/conversation";
 
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 const OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
@@ -19,9 +19,13 @@ export const initConversation = async (setConversation, setOptions) => {
     });
 
     const newMessage = response.data.choices[0].message;
+    const extractedOptions = extractOptions(newMessage);
+
+    removeOptionsFromMessage(newMessage, extractedOptions);
+
     const updatedConversation = [...conversation, newMessage];
 
-    setOptions(extractOptions(newMessage));
+    setOptions(extractedOptions);
     setConversation(updatedConversation);
   } catch (error) {
     console.error(error);
@@ -47,9 +51,13 @@ export const updateConversation = async (
     });
 
     const newMessage = response.data.choices[0].message;
+    const extractedOptions = extractOptions(newMessage);
+
+    removeOptionsFromMessage(newMessage, extractedOptions);
+
     const updatedConversation = [...currentConversation, newMessage];
 
-    setOptions(extractOptions(newMessage));
+    setOptions(extractedOptions);
     setConversation(updatedConversation);
   } catch (error) {
     console.error(error);

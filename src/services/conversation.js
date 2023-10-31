@@ -16,26 +16,27 @@ Vous êtes un narrateur de dark-fantasy, conduisant un jeu de rôle interactif. 
 IMPORTANT: Utilisez UNIQUEMENT ce format. Une options ne doit pas dépasser 80 caractères.
 AUCUNE autre information ou détail ne doit suivre les options.
 
-10. N'ajoutez aucun détail après les options.
+10. N'ajoutez aucun détail après les options. Le text doit finir ABSOLUMENT par le tableau d'options.
 11. Acceptez que l'échec est une option enrichissante.
 
 Exemple 1:
 "Lors d'une marche à travers une forêt dense, un corbeau noir se pose devant vous, portant une lettre."
-["option 1: "Prendre la lettre", "option 2: "Chasser le corbeau", "option 3: "Continuer sans s'arrêter"];
+["option 1": "Prendre la lettre", "option 2": "Chasser le corbeau", "option 3": "Continuer sans s'arrêter"];
 
 Exemple 2:
 "Lors d'une marche à travers une forêt dense, un corbeau noir se pose devant vous, portant une lettre."
-["option 1: "Prendre la lettre", "option 2: "Chasser le corbeau", "option 3: "Continuer sans s'arrêter"];
+["option 1": "Prendre la lettre", "option 2": "Chasser le corbeau", "option 3": "Continuer sans s'arrêter"];
 `;
 
 export let conversation = [{ role: "system", content: contextPrompt }];
 
 export const extractOptions = (message) => {
   const regexPatterns = [
-    /"Option \d+: [^"]+"/g,
-    /Options\s*:\s*(\d+\.\s*[^.]+\.)/g,
     /"option \d+: "([^"]+)"/g,
-    /"option \d+: "(.+?)"(?=, "option|\]$)/g
+    /"option \d+: "(.+?)"(?=, "option|\]$)/g,
+    /"option \d+":\s*"([^"]+)"/g,
+    /"Option \d+":\s*"([^"]+)"/g,
+    /"Options \d+":\s*"([^"]+)"/g,
   ];
 
   for (const regex of regexPatterns) {
@@ -48,3 +49,13 @@ export const extractOptions = (message) => {
   console.error("No options found");
   return [];
 }
+
+export const removeOptionsFromMessage = (message, extractedOptions) => {
+  for (const option of extractedOptions) {
+    message.content = message.content.replace(option, "").trim();
+  }
+  message.content = message.content
+    .replace(/(\[\s*,\s*,\s*\])/, "")
+    .trim();
+  message.content = message.content.replace(/;/g, "").trim();
+};
