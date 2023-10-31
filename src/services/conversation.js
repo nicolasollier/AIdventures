@@ -49,14 +49,29 @@ export const extractOptions = (message) => {
 
   console.error("No options found", message.content);
   return ['"option 1": "Laisser faire le destin"'];
-}
+};
 
 export const removeOptionsFromMessage = (message, extractedOptions) => {
   for (const option of extractedOptions) {
     message.content = message.content.replace(option, "").trim();
   }
-  message.content = message.content
-    .replace(/(\[\s*,\s*,\s*\])/, "")
-    .trim();
+  message.content = message.content.replace(/(\[\s*,\s*,\s*\])/, "").trim();
   message.content = message.content.replace(/;/g, "").trim();
+};
+
+export const checkConversationValidity = (conversation, option) => {
+  if (option === "Laisser faire le destin") {
+    conversation = [
+      ...conversation,
+      {
+        role: "system",
+        content: `Tu viens de ne pas respecter le format demandé, n'oublie pas: Exemple AUTORISE 1:
+          "Lors d'une marche à travers une forêt dense, un corbeau noir se pose devant vous, portant une lettre."
+          ["option 1": "Prendre la lettre", "option 2": "Chasser le corbeau", "option 3": "Continuer sans s'arrêter"];`,
+      },
+      { role: "user", content: option },
+    ];
+  } else {
+    conversation = [...conversation, { role: "user", content: option }];
+  }
 };

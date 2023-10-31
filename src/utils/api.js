@@ -1,5 +1,5 @@
 import axios from "axios";
-import { conversation, extractOptions, removeOptionsFromMessage } from "../services/conversation";
+import { conversation, extractOptions, removeOptionsFromMessage, checkConversationValidity } from "../services/conversation";
 
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 const OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
@@ -40,10 +40,7 @@ export const updateConversation = async (
   setOptions,
 ) => {
   try {
-    currentConversation = [
-      ...currentConversation,
-      { role: "user", content: userChoice },
-    ];
+    checkConversationValidity(currentConversation, userChoice);
 
     const response = await openai.post("", {
       model: "gpt-3.5-turbo",
