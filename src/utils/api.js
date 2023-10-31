@@ -46,7 +46,7 @@ export const updateConversation = async (
         { role: "user", content: "Aucune option disponible"},
         {
           role: "system",
-          content: `Tu viens de répondre au mauvais format. Répond moi comme ceci:
+          content: `Tu viens de répondre au mauvais format. Répète ce que tu m'a dit précédement exactement comme ceci:
             "Texte narratif"
             ["option 1": "Description", "option 2": "Description", "option 3": "Description"];
           `,

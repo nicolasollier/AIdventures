@@ -29,7 +29,7 @@ const Chatbox = () => {
       flexDirection={"column"}
       alignItems={"center"}
       width={"100%"}
-      maxW={"1440px"}
+      maxW={"1280px"}
       flex={1}
       overflowY={"auto"}
       mb={24}
