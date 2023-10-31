@@ -50,3 +50,11 @@ export const extractOptions = (message) => {
   console.error("No options found", message.content);
   return ['"option 1": "Laisser faire le destin"'];
 };
+
+export const removeOptionsFromMessage = (message, extractedOptions) => {
+  for (const option of extractedOptions) {
+    message.content = message.content.replace(option, "").trim();
+  }
+  message.content = message.content.replace(/(\[\s*,\s*,\s*\])/, "").trim();
+  message.content = message.content.replace(/;/g, "").trim();
+};
