@@ -1,5 +1,5 @@
 import axios from "axios";
-import { conversation, extractOptions, removeOptionsFromMessage, checkConversationValidity } from "../services/conversation";
+import { conversation, extractOptions, removeOptionsFromMessage } from "../services/conversation";
 
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 const OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
@@ -40,7 +40,20 @@ export const updateConversation = async (
   setOptions,
 ) => {
   try {
-    checkConversationValidity(currentConversation, userChoice);
+    if (userChoice === "Laisser faire le destin") {
+      currentConversation = [
+        ...currentConversation,
+        {
+          role: "system",
+          content: `Tu viens de ne pas respecter le format demandé, n'oublie pas: Exemple AUTORISE 1:
+            "Lors d'une marche à travers une forêt dense, un corbeau noir se pose devant vous, portant une lettre."
+            ["option 1": "Prendre la lettre", "option 2": "Chasser le corbeau", "option 3": "Continuer sans s'arrêter"];`,
+        },
+        { role: "user", content: userChoice },
+      ];
+    } else {
+      currentConversation = [...currentConversation, { role: "user", content: userChoice }];
+    }
 
     const response = await openai.post("", {
       model: "gpt-3.5-turbo",
