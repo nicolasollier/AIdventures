@@ -40,19 +40,29 @@ export const updateConversation = async (
   setOptions,
 ) => {
   try {
-    if (userChoice === "Laisser faire le destin") {
+    if (userChoice === "Aucune option disponible") {
       currentConversation = [
         ...currentConversation,
         {
           role: "system",
-          content: `Tu viens de ne pas respecter le format demandé, n'oublie pas: Exemple AUTORISE 1:
-            "Lors d'une marche à travers une forêt dense, un corbeau noir se pose devant vous, portant une lettre."
-            ["option 1": "Prendre la lettre", "option 2": "Chasser le corbeau", "option 3": "Continuer sans s'arrêter"];`,
+          content: `Tu viens de répondre au mauvais format. Répond moi comme ceci:
+            "Texte narratif"
+            ["option 1": "Description", "option 2": "Description", "option 3": "Description"];
+          `,
         },
-        { role: "user", content: userChoice },
       ];
     } else {
-      currentConversation = [...currentConversation, { role: "user", content: userChoice }];
+      currentConversation = [
+        ...currentConversation,
+        { role: "user", content: userChoice },
+      ];
+    }
+
+    const historyLength = 10;
+
+    if (currentConversation.length > historyLength) {
+        currentConversation = [currentConversation[0]].concat(currentConversation.slice(-(historyLength-1)));
+        console.log(currentConversation);
     }
 
     const response = await openai.post("", {

@@ -38,6 +38,7 @@ export const extractOptions = (message) => {
     /"Option \d+":\s*"([^"]+)"/g,
     /"Options \d+":\s*"([^"]+)"/g,
     /"Option \d+: ([^"]+)"/g,
+    /(?<=": ")([^"]+)/g,
   ];
 
   for (const regex of regexPatterns) {
@@ -48,7 +49,7 @@ export const extractOptions = (message) => {
   }
 
   console.error("No options found", message.content);
-  return ['"option 1": "Laisser faire le destin"'];
+  return ['"options not found": "Aucune option disponible"'];
 };
 
 export const removeOptionsFromMessage = (message, extractedOptions) => {
