@@ -48,7 +48,7 @@ export const updateConversation = async (
           role: "system",
           content: `Tu viens de répondre au mauvais format. Répète ton message précédent en respectant le format suivant:
             "Texte narratif"
-            ["Description", "Description", "Description"];
+            ["Description", "Description", "Description"]
           `,
         },
       ];
@@ -63,7 +63,6 @@ export const updateConversation = async (
 
     if (currentConversation.length > historyLength) {
         currentConversation = [currentConversation[0]].concat(currentConversation.slice(-(historyLength-1)));
-        console.log(currentConversation);
     }
 
     const response = await openai.post("", {
