@@ -4,10 +4,9 @@ export const ConversationContext = createContext();
 
 export const ConversationProvider = ({ children }) => {
   const [conversation, setConversation] = useState([]);
-  const [options, setOptions] = useState([]);
 
   return (
-    <ConversationContext.Provider value={{ conversation, setConversation, options, setOptions }}>
+    <ConversationContext.Provider value={{ conversation, setConversation }}>
       {children}
     </ConversationContext.Provider>
   );

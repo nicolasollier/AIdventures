@@ -39,7 +39,7 @@ export const updateConversation = async (
       { role: "user", content: userChoice },
     ];
 
-    const historyLength = 20;
+    const historyLength = 30;
 
     if (currentConversation.length > historyLength) {
         currentConversation = [currentConversation[0]].concat(currentConversation.slice(-(historyLength-1)));

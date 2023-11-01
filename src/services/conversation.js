@@ -14,25 +14,3 @@ IMPORTANT, Suivez ces règles:
 `;
 
 export let conversation = [{ role: "system", content: contextPrompt }];
-
-export const extractOptions = (message) => {
-  const regexPatterns = [
-    //insert regex patterns here
-  ];
-
-  for (const regex of regexPatterns) {
-    const matches = message.content.match(regex);
-    if (matches.length > 0) {
-      return matches;
-    }
-  }
-
-  // console.error("No options found", message);
-  return ['Choix 1', 'Choix 2', 'Choix 3'];
-};
-
-export const removeOptionsFromMessage = (message, extractedOptions) => {
-  for (const option of extractedOptions) {
-    message.content = message.content.replace(option, "").trim();
-  }
-};
