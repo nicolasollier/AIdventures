@@ -1,46 +1,23 @@
-import { Box, Spinner, Button } from "@chakra-ui/react";
+import { Box, Spinner, Button, InputGroup, Input } from "@chakra-ui/react";
 import { updateConversation } from "../../utils/api";
+import { useState } from "react";
 
 const ActionBar = ({
   isLoading,
   setIsLoading,
   conversation,
   setConversation,
-  options,
-  setOptions,
 }) => {
+  const [userInput, setUserInput] = useState("");
+
   function handleOptionClick(option) {
     setIsLoading(true);
-    updateConversation(option, conversation, setConversation, setOptions).then(
+    setUserInput("");
+
+    updateConversation(option, conversation, setConversation).then(
       () => setIsLoading(false)
     );
   }
-
-  const renderOptions = () => {
-    if (options && options.length) {
-      return options.map((option, index) => {
-        const extractedText = option.replace(/^"|"$/g, '');
-        return (
-          <Button
-            key={index}
-            onClick={() => handleOptionClick(extractedText)}
-            fontSize={"xs"}
-            color={"white"}
-            bg={"gray.700"}
-            variant="solid"
-            mb={2}
-            _hover={{
-              bg: "gray.500",
-            }}
-          >
-            {extractedText}
-          </Button>
-        );
-      });
-    }
-
-    return null;
-  };
 
   return (
     <Box
@@ -51,7 +28,8 @@ const ActionBar = ({
       bottom={0}
       position={"fixed"}
       bg={"gray.900"}
-      p={8}
+      px={16}
+      py={4}
     >
       {isLoading ? (
         <Spinner
@@ -62,7 +40,41 @@ const ActionBar = ({
           size="md"
         />
       ) : (
-        renderOptions()
+        <>
+          <InputGroup>
+            <Input
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.keyCode === 13) {
+                  handleOptionClick(userInput);
+                }
+              }}
+              placeholder={"Décrivez vos actions ici..."}
+              fontSize={"sm"}
+              value={userInput}
+              onChange={(e) => {
+                setUserInput(e.target.value);
+              }}
+              textColor={"white"}
+              borderColor={"gray.700"}
+              _placeholder={{ opacity: 0.5, color: 'white' }}
+              py={4}
+            />
+            <Button
+              onClick={() => handleOptionClick(userInput)}
+              fontSize={"xs"}
+              color={"white"}
+              bg={"gray.700"}
+              variant="solid"
+              ml={4}
+              mb={2}
+              _hover={{
+                bg: "gray.500",
+              }}
+            >
+              {"Envoyer"}
+            </Button>
+          </InputGroup>
+        </>
       )}
     </Box>
   );
