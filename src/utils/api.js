@@ -1,9 +1,9 @@
 import axios from "axios";
-import { conversation } from "../services/conversation";
+import { conversation, handlePlayerInfos } from "../services/conversation";
 
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 const OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
-const HISTORY_LENGTH = 30;
+const HISTORY_LENGTH = 20;
 
 const openai = axios.create({
   baseURL: OPENAI_API_URL,
@@ -30,19 +30,24 @@ export const initConversation = async (setConversation) => {
 };
 
 export const updateConversation = async (
-  userChoice,
+  playerChoice,
   currentConversation,
   setConversation,
+  playerInfos
 ) => {
   try {
+    handlePlayerInfos(playerInfos, currentConversation);
+
     let updatedConversation = [
       ...currentConversation,
-      { role: "user", content: userChoice },
+      { role: "user", content: playerChoice },
     ];
     setConversation(updatedConversation);
 
     if (updatedConversation.length > HISTORY_LENGTH) {
-        updatedConversation = [updatedConversation[0]].concat(updatedConversation.slice(-(HISTORY_LENGTH-1)));
+      updatedConversation = updatedConversation.slice(0, 2).concat(
+        updatedConversation.slice(2).slice(-(HISTORY_LENGTH - 2))
+      );
     }
 
     const response = await openai.post("", {

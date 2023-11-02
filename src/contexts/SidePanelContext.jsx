@@ -4,7 +4,10 @@ export const SidePanelContext = createContext();
 
 export const SidePanelProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [playerInfos, setPlayerInfos] = useState({});
+  const [playerInfos, setPlayerInfos] = useState({
+    activeQuest: "Non renseigné",
+    equipment: "Non renseigné",
+  });
 
   return (
     <SidePanelContext.Provider value={{ isOpen, setIsOpen, playerInfos, setPlayerInfos }}>

@@ -1,6 +1,8 @@
+import React, { useContext } from "react";
 import { Box, Spinner, Button, InputGroup, Input } from "@chakra-ui/react";
 import { updateConversation } from "../../utils/api";
 import { useState } from "react";
+import { SidePanelContext } from "../../contexts/SidePanelContext";
 
 const ActionBar = ({
   isLoading,
@@ -9,13 +11,15 @@ const ActionBar = ({
   setConversation,
 }) => {
   const [userInput, setUserInput] = useState("");
+  const { playerInfos } = useContext(SidePanelContext);
 
   function handleOptionClick(option) {
-    setIsLoading(true);
     setUserInput("");
+    setIsLoading(true);
 
-    updateConversation(option, conversation, setConversation).then(
-      () => setIsLoading(false)
+
+    updateConversation(option, conversation, setConversation, playerInfos).then(() =>
+      setIsLoading(false)
     );
   }
 
@@ -58,7 +62,7 @@ const ActionBar = ({
               }}
               textColor={"white"}
               borderColor={"gray.700"}
-              _placeholder={{ opacity: 0.5, color: 'white' }}
+              _placeholder={{ opacity: 0.5, color: "white" }}
               py={6}
             />
             <Button

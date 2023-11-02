@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
+import { SidePanelContext } from "../../contexts/SidePanelContext";
 import {
   Box,
   VStack,
@@ -9,12 +10,11 @@ import {
   Button,
   Flex,
 } from "@chakra-ui/react";
-import { SidePanelContext } from "../../contexts/SidePanelContext";
 import CloseIcon from "../icons/CloseIcon";
 
 const SidePanel = () => {
-  const { isOpen, setIsOpen } = useContext(SidePanelContext);
-  const [playerInfos, setPlayerInfos] = useState({});
+  const { isOpen, setIsOpen, playerInfos, setPlayerInfos } =
+    useContext(SidePanelContext);
 
   const togglePanel = () => {
     setIsOpen(!isOpen);
@@ -34,10 +34,6 @@ const SidePanel = () => {
       ...playerInfos,
       [name]: value,
     });
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(playerInfos);
   };
 
   return (
@@ -117,10 +113,12 @@ const SidePanel = () => {
                     </Text>
                     <Textarea
                       name="activeQuest"
+                      h={["100px", "160px"]}
                       onChange={handleInputChange}
                       value={playerInfos.activeQuest || ""}
                       placeholder="Décrivez votre quête en cours..."
                       fontSize="sm"
+                      lineHeight={1.8}
                       textColor="white"
                       borderColor="gray.700"
                       _placeholder={{ opacity: 0.5, color: "white" }}
@@ -134,36 +132,37 @@ const SidePanel = () => {
                     </Text>
                     <Textarea
                       name="equipment"
+                      h={["100px", "160px"]}
                       onChange={handleInputChange}
                       value={playerInfos.equipment || ""}
                       placeholder="Listez votre équipement ici..."
                       fontSize="sm"
+                      lineHeight={1.8}
                       textColor="white"
                       borderColor="gray.700"
                       _placeholder={{ opacity: 0.5, color: "white" }}
                       resize="none"
                     />
                   </InputGroup>
+                  <Box py={5} mt="auto" width="100%">
+                    <Button
+                      onClick={closePanel}
+                      w="100%"
+                      fontSize={["xs", "sm"]}
+                      color="white"
+                      bg="gray.700"
+                      py={6}
+                      variant="solid"
+                      _hover={{
+                        bg: "gray.600",
+                      }}
+                    >
+                      Sauvegarder
+                    </Button>
+                  </Box>
                 </VStack>
               </Box>
             </VStack>
-
-            <Box p={5} mt="auto" width="100%">
-              <Button
-                onClick={handleSubmit}
-                w="100%"
-                fontSize={["xs", "sm"]}
-                color="white"
-                bg="gray.700"
-                py={6}
-                variant="solid"
-                _hover={{
-                  bg: "gray.600",
-                }}
-              >
-                Sauvegarder
-              </Button>
-            </Box>
           </Flex>
         </Box>
       )}
