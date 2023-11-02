@@ -55,7 +55,7 @@ const SidePanel = () => {
         <Box
           w={["100%", "60%", "40%"]}
           h="100vh"
-          px={5}
+          px={[2, 5]}
           pt={5}
           pb={1}
           borderLeft="1px"
@@ -87,9 +87,9 @@ const SidePanel = () => {
               <CloseIcon />
             </Button>
 
-            <VStack spacing={5} overflowY="auto">
-              <Box p={5} width="full">
-                <Text fontSize="xl" fontWeight="normal" color="white">
+            <VStack spacing={5} overflowY="auto" h="full">
+              <Flex p={5} width="full" h="full" justifyContent="space-evenly" flexDir={"column"} >
+                <Text fontSize={["lg", "xl"]} fontWeight="normal" color="white">
                   Journal de l'aventurier
                 </Text>
 
@@ -144,24 +144,26 @@ const SidePanel = () => {
                       resize="none"
                     />
                   </InputGroup>
-                  <Box py={5} mt="auto" width="100%">
-                    <Button
-                      onClick={closePanel}
-                      w="100%"
-                      fontSize={["xs", "sm"]}
-                      color="white"
-                      bg="gray.700"
-                      py={6}
-                      variant="solid"
-                      _hover={{
-                        bg: "gray.600",
-                      }}
-                    >
-                      Sauvegarder
-                    </Button>
-                  </Box>
                 </VStack>
-              </Box>
+
+                <Box alignSelf={"flex-end"} mt="auto" width="100%">
+                  <Button
+                    onClick={closePanel}
+                    w="100%"
+                    fontSize={["xs", "sm"]}
+                    color="white"
+                    bg="gray.700"
+                    py={6}
+                    mb={.5}
+                    variant="solid"
+                    _hover={{
+                      bg: "gray.600",
+                    }}
+                  >
+                    Sauvegarder
+                  </Button>
+                </Box>
+              </Flex>
             </VStack>
           </Flex>
         </Box>
