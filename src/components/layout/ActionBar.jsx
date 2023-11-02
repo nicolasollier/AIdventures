@@ -59,16 +59,17 @@ const ActionBar = ({
               textColor={"white"}
               borderColor={"gray.700"}
               _placeholder={{ opacity: 0.5, color: 'white' }}
-              py={4}
+              py={6}
             />
             <Button
               onClick={() => handleOptionClick(userInput)}
-              fontSize={"xs"}
+              fontSize={["xs", "sm"]}
               color={"white"}
               bg={"gray.700"}
               variant="solid"
+              py={6}
+              px={8}
               ml={4}
-              mb={2}
               _hover={{
                 bg: "gray.500",
               }}
