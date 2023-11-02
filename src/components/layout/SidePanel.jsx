@@ -103,7 +103,8 @@ const SidePanel = () => {
                       Votre quête active
                     </Text>
                     <Textarea
-                      placeholder={"Décrivez vos actions ici..."}
+                      pt={4}
+                      placeholder={"Décrivez votre quête en cours..."}
                       fontSize={"sm"}
                       textColor={"white"}
                       borderColor={"gray.700"}
@@ -119,6 +120,7 @@ const SidePanel = () => {
                       Votre équipement
                     </Text>
                     <Textarea
+                      pt={4}
                       placeholder={"Listez votre équipement ici..."}
                       fontSize={"sm"}
                       textColor={"white"}
