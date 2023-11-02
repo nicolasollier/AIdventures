@@ -3,6 +3,7 @@ import { conversation } from "../services/conversation";
 
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 const OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
+const HISTORY_LENGTH = 30;
 
 const openai = axios.create({
   baseURL: OPENAI_API_URL,
@@ -40,9 +41,8 @@ export const updateConversation = async (
     ];
     setConversation(updatedConversation);
 
-    const historyLength = 30;
-    if (updatedConversation.length > historyLength) {
-        updatedConversation = [updatedConversation[0]].concat(updatedConversation.slice(-(historyLength-1)));
+    if (updatedConversation.length > HISTORY_LENGTH) {
+        updatedConversation = [updatedConversation[0]].concat(updatedConversation.slice(-(HISTORY_LENGTH-1)));
     }
 
     const response = await openai.post("", {
