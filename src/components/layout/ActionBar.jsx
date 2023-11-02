@@ -71,7 +71,7 @@ const ActionBar = ({
               px={8}
               ml={4}
               _hover={{
-                bg: "gray.500",
+                bg: "gray.600",
               }}
             >
               {"Envoyer"}
