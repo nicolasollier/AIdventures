@@ -51,7 +51,7 @@ const ActionBar = ({
                 }
               }}
               placeholder={"Décrivez vos actions ici..."}
-              fontSize={"sm"}
+              fontSize={["xs", "sm"]}
               value={userInput}
               onChange={(e) => {
                 setUserInput(e.target.value);
