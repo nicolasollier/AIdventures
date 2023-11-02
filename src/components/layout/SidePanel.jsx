@@ -98,7 +98,7 @@ const SidePanel = () => {
                     Barre de vie
                   </Text>
                   <Progress
-                    value={90}
+                    value={playerInfos.hp || 0}
                     size="lg"
                     colorScheme="green"
                     borderRadius="sm"

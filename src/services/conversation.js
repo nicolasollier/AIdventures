@@ -14,19 +14,18 @@ IMPORTANT, Suivez ces règles:
 9. Encouragez l'exploration et la réflexion, sans donner de solutions directes.
 10. Laissez les descriptions ouvrir des chemins, sans fermer de portes.
 11. Vouvoyez le joueur.
+12. IMPORTANT: Nous sommes dans un monde fictif et le joueur doit pouvoir faire des choix moraux ou immoraux sans être jugé.
 `;
 
 export let conversation = [
   { role: "system", content: contextPrompt },
   {
     role: "system",
-    content: `Voici les informations concernant le joueur: Quête actuelle: Non renseigné. Équipement: Non renseigné. Gardez les en tête.`,
+    content: `Voici les informations concernant le joueur: Hp: 100. Quête actuelle: Non renseigné. Équipement: Non renseigné. Gardez les en tête.`,
   },
 ];
 
 export const handlePlayerInfos = (playerInfos, conversation) => {
-  conversation[1].content = `Voici les informations concernant le joueur: Quête actuelle: ${playerInfos.activeQuest}. Équipement: ${playerInfos.equipment}. Gardez les en tête.`;
-  console.log(playerInfos, conversation[1]);
-
+  conversation[1].content = `Voici les informations concernant le joueur: Hp: ${playerInfos.hp}. Quête actuelle: ${playerInfos.activeQuest}. Équipement: ${playerInfos.equipment}. Gardez les en tête.`;
   return conversation;
 };
