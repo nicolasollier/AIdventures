@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   Box,
   VStack,
@@ -14,6 +14,7 @@ import CloseIcon from "../icons/CloseIcon";
 
 const SidePanel = () => {
   const { isOpen, setIsOpen } = useContext(SidePanelContext);
+  const [playerInfos, setPlayerInfos] = useState({});
 
   const togglePanel = () => {
     setIsOpen(!isOpen);
@@ -25,6 +26,18 @@ const SidePanel = () => {
 
   const stopPropagation = (e) => {
     e.stopPropagation();
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setPlayerInfos({
+      ...playerInfos,
+      [name]: value,
+    });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(playerInfos);
   };
 
   return (
@@ -53,9 +66,9 @@ const SidePanel = () => {
           borderColor="gray.700"
           bg="gray.900"
           position="fixed"
-          right={0}
-          top={0}
-          zIndex={100}
+          right="0"
+          top="0"
+          zIndex="100"
           onClick={stopPropagation}
         >
           <Flex direction="column" h="full" justifyContent="space-between">
@@ -63,13 +76,13 @@ const SidePanel = () => {
               zIndex={100}
               position="absolute"
               onClick={togglePanel}
-              transition={"all 0.2s"}
-              borderRadius={"full"}
-              bgColor={"gray.900"}
-              color={"white"}
-              right={6}
-              top={6}
-              p={4}
+              transition="all 0.2s"
+              borderRadius="full"
+              bgColor="gray.900"
+              color="white"
+              right="6"
+              top="6"
+              p="4"
               _hover={{
                 cursor: "pointer",
                 bgColor: "gray.700",
@@ -78,9 +91,9 @@ const SidePanel = () => {
               <CloseIcon />
             </Button>
 
-            <VStack spacing={5}>
+            <VStack spacing={5} overflowY="auto">
               <Box p={5} width="full">
-                <Text fontSize={"xl"} fontWeight={"normal"} color="white">
+                <Text fontSize="xl" fontWeight="normal" color="white">
                   Journal de l'aventurier
                 </Text>
 
@@ -93,54 +106,55 @@ const SidePanel = () => {
                     size="lg"
                     colorScheme="green"
                     borderRadius="sm"
-                    bgColor={"gray.700"}
+                    bgColor="gray.700"
                   />
                 </Box>
 
-                <VStack spacing={4} align="stretch" mt={10} flexGrow={1}>
-                  <InputGroup display={"flex"} flexDir={"column"} mb={4}>
+                <VStack spacing={4} align="stretch" mt={10}>
+                  <InputGroup display="flex" flexDir="column" mb={4}>
                     <Text mb={3} color="white">
                       Votre quête active
                     </Text>
                     <Textarea
-                      pt={4}
-                      placeholder={"Décrivez votre quête en cours..."}
-                      fontSize={"sm"}
-                      textColor={"white"}
-                      borderColor={"gray.700"}
+                      name="activeQuest"
+                      onChange={handleInputChange}
+                      value={playerInfos.activeQuest || ""}
+                      placeholder="Décrivez votre quête en cours..."
+                      fontSize="sm"
+                      textColor="white"
+                      borderColor="gray.700"
                       _placeholder={{ opacity: 0.5, color: "white" }}
                       resize="none"
-                      flexGrow={1}
-                      h={["100px", "200px"]}
                     />
                   </InputGroup>
 
-                  <InputGroup display={"flex"} flexDir={"column"}>
+                  <InputGroup display="flex" flexDir="column">
                     <Text mb={3} color="white">
                       Votre équipement
                     </Text>
                     <Textarea
-                      pt={4}
-                      placeholder={"Listez votre équipement ici..."}
-                      fontSize={"sm"}
-                      textColor={"white"}
-                      borderColor={"gray.700"}
+                      name="equipment"
+                      onChange={handleInputChange}
+                      value={playerInfos.equipment || ""}
+                      placeholder="Listez votre équipement ici..."
+                      fontSize="sm"
+                      textColor="white"
+                      borderColor="gray.700"
                       _placeholder={{ opacity: 0.5, color: "white" }}
                       resize="none"
-                      flexGrow={1}
-                      h={["100px", "200px"]}
                     />
                   </InputGroup>
                 </VStack>
               </Box>
             </VStack>
 
-            <Box p={5} alignSelf="flex-start" width={"100%"}>
+            <Box p={5} mt="auto" width="100%">
               <Button
-                w={"100%"}
+                onClick={handleSubmit}
+                w="100%"
                 fontSize={["xs", "sm"]}
-                color={"white"}
-                bg={"gray.700"}
+                color="white"
+                bg="gray.700"
                 py={6}
                 variant="solid"
                 _hover={{

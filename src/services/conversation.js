@@ -1,4 +1,4 @@
-export const contextPrompt =`
+export const contextPrompt = `
 Narrateur en héroic-fantasy, votre tâche est de tisser un récit captivant pour un jeu de rôle interactif. 
 
 IMPORTANT, Suivez ces règles:
