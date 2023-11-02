@@ -11,7 +11,9 @@ const Header = () => {
       boxShadow="2xl"
       bgColor={"gray.900"}
     >
-      <Text fontSize={"xl"}>AIdventures</Text>
+      <Box maxW={"1280px"} mx={"auto"}>
+        <Text fontSize={"xl"}>AIdventures</Text>
+      </Box>
     </Box>
   );
 };

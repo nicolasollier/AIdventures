@@ -24,13 +24,13 @@ const ActionBar = ({
       display={"flex"}
       flexDirection={"column"}
       width={"100%"}
-      maxWidth={"1440px"}
+      maxWidth={"1280px"}
       bottom={0}
       position={"fixed"}
       bg={"gray.900"}
       boxShadow="2xl"
       px={[6, 12]}
-      py={4}
+      py={6}
     >
       {isLoading ? (
         <Spinner
