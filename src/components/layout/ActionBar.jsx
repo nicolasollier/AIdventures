@@ -28,7 +28,8 @@ const ActionBar = ({
       bottom={0}
       position={"fixed"}
       bg={"gray.900"}
-      px={16}
+      boxShadow="2xl"
+      px={[6, 12]}
       py={4}
     >
       {isLoading ? (

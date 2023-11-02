@@ -10,7 +10,6 @@ const Header = () => {
       p={"6"}
       boxShadow="2xl"
       bgColor={"gray.900"}
-      bgBlendMode={"luminosity"}
     >
       <Text fontSize={"xl"}>AIdventures</Text>
     </Box>

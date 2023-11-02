@@ -34,24 +34,24 @@ export const updateConversation = async (
   setConversation,
 ) => {
   try {
-    currentConversation = [
+    let updatedConversation = [
       ...currentConversation,
       { role: "user", content: userChoice },
     ];
+    setConversation(updatedConversation);
 
     const historyLength = 30;
-
-    if (currentConversation.length > historyLength) {
-        currentConversation = [currentConversation[0]].concat(currentConversation.slice(-(historyLength-1)));
+    if (updatedConversation.length > historyLength) {
+        updatedConversation = [updatedConversation[0]].concat(updatedConversation.slice(-(historyLength-1)));
     }
 
     const response = await openai.post("", {
       model: "gpt-3.5-turbo",
-      messages: currentConversation,
+      messages: updatedConversation,
     });
 
     const newMessage = response.data.choices[0].message;
-    const updatedConversation = [...currentConversation, newMessage];
+    updatedConversation = [...updatedConversation, newMessage];
 
     setConversation(updatedConversation);
   } catch (error) {
