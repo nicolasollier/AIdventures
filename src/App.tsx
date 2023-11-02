@@ -1,6 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import Header from "./components/layout/Header";
 import Chatbox from "./components/Chatbox";
+import Sidepanel from "./components/layout/Sidepanel";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       fontFamily="monospace"
       >
         <Header />
+        <Sidepanel />
         <Chatbox />
     </Box>
   );

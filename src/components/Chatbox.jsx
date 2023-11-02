@@ -13,8 +13,9 @@ const Chatbox = () => {
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    setIsLoading(true);
-    initConversation(setConversation).then(() => setIsLoading(false));
+    // setIsLoading(true);
+    // initConversation(setConversation).then(() => setIsLoading(false));
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
