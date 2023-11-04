@@ -9,15 +9,35 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { PlayerContext } from "../contexts/PlayerContext";
 
 const Welcome = () => {
   const navigate = useNavigate();
+
+  const { setPlayerInfos } = useContext(PlayerContext);
+
   const [race, setRace] = useState("");
   const [characterClass, setCharacterClass] = useState("");
   const [alignment, setAlignment] = useState("");
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
+
+  const handleSetPlayerInfos = async () => {
+    await setPlayerInfos({
+      hp: 100,
+      activeQuest: "N/A",
+      equipment: "N/A",
+      name: name,
+      race: race,
+      gender: gender,
+      characterClass: characterClass,
+      alignment: alignment,
+    });
+
+    navigate("/conversation");
+  };
 
   const races = {
     elfe: "Elfe",
@@ -199,11 +219,8 @@ const Welcome = () => {
             _hover={{
               bg: "gray.600",
             }}
-            onClick={() => {
-              navigate("/")
-              console.log({ name, gender, race, characterClass, alignment });
-            }}
-          >
+            onClick={handleSetPlayerInfos}
+            >
             Commencer l'aventure
           </Button>
         </Flex>

@@ -1,20 +1,22 @@
 import { Box, Text, VStack, HStack, Spacer } from "@chakra-ui/react";
 import ActionBar from "../components/layout/ActionBar";
 import { initConversation } from "../utils/api";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import { useConversation } from "../hooks/useConversation";
+import { PlayerContext } from "../contexts/PlayerContext";
 import { motion } from "framer-motion";
 
 const MotionBox = motion(Box);
 
 const Chatbox = () => {
   const { conversation, setConversation } = useConversation();
+  const { playerInfos } = useContext(PlayerContext);
   const [isLoading, setIsLoading] = useState(true);
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
     setIsLoading(true);
-    initConversation(setConversation).then(() => setIsLoading(false));
+    initConversation(setConversation, playerInfos).then(() => setIsLoading(false));
   }, []);
 
   useEffect(() => {

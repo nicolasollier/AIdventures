@@ -12,17 +12,22 @@ const openai = axios.create({
   },
 });
 
-export const initConversation = async (setConversation) => {
+export const initConversation = async (setConversation, playerInfos) => {
+  let isFromInit = true;
+  
   try {
     const response = await openai.post("", {
       model: "gpt-3.5-turbo",
       messages: conversation,
     });
 
+    handlePlayerInfos(playerInfos, conversation, isFromInit);
+
     const newMessage = response.data.choices[0].message;
     const updatedConversation = [...conversation, newMessage];
 
     setConversation(updatedConversation);
+    console.log(updatedConversation)
   } catch (error) {
     console.error(error);
     return "Error while initializing conversation";
@@ -35,8 +40,10 @@ export const updateConversation = async (
   setConversation,
   playerInfos
 ) => {
+  let isFromInit = false;
+
   try {
-    handlePlayerInfos(playerInfos, currentConversation);
+    handlePlayerInfos(playerInfos, currentConversation, isFromInit);
 
     let updatedConversation = [
       ...currentConversation,
@@ -59,6 +66,7 @@ export const updateConversation = async (
     updatedConversation = [...updatedConversation, newMessage];
 
     setConversation(updatedConversation);
+    console.log(updatedConversation)
   } catch (error) {
     console.error(error);
     return "Error while updating conversation";

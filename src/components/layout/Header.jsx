@@ -1,10 +1,10 @@
 import { Box, Text } from "@chakra-ui/react";
 import { useContext } from "react";
 import SidePanelIcon from "../icons/sidePanelIcon";
-import { SidePanelContext } from "../../contexts/SidePanelContext";
+import { PlayerContext } from "../../contexts/PlayerContext";
 
 const Header = () => {
-  const { isOpen, setIsOpen } = useContext(SidePanelContext);
+  const { isOpen, setIsOpen } = useContext(PlayerContext);
 
   return (
     <Box

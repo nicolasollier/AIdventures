@@ -2,7 +2,7 @@ export const contextPrompt = `
 Narrateur en héroic-fantasy, tissez un récit interactif captivant. 
 
 Règles:
-1. Décrivez le cadre initial de l'aventure.
+1. Décrivez le cadre initial de l'aventure en utilisant les informations sur le joueur.
 2. Évitez les incohérences et anachronismes.
 3. Guidez le joueur vers le début de sa quête.
 4. Incluez l'échec comme un élément narratif enrichissant.
@@ -19,15 +19,27 @@ Format:
 2. Pas de hashtags/emojis.
 `;
 
-export let conversation = [
-  { role: "system", content: contextPrompt },
-  {
-    role: "system",
-    content: `Voici les informations concernant le joueur: Hp: 100. Quête actuelle: Non renseigné. Équipement: Non renseigné. Gardez les en tête.`,
-  },
-];
+export let conversation = [{ role: "system", content: contextPrompt }];
 
-export const handlePlayerInfos = (playerInfos, conversation) => {
-  conversation[1].content = `Voici les informations concernant le joueur: Hp: ${playerInfos.hp}. Quête actuelle: ${playerInfos.activeQuest}. Équipement: ${playerInfos.equipment}. Gardez les en tête.`;
+export const handlePlayerInfos = (playerInfos, conversation, isFromInit) => {
+  const playerContextPrompt = `
+    Informations sur le joueur:
+    - Nom: ${playerInfos.name}
+    - Genre: ${playerInfos.gender}
+    - Race: ${playerInfos.race}
+    - Classe: ${playerInfos.characterClass}
+    - Alignement: ${playerInfos.alignment}
+    - Points de vie: ${playerInfos.hp}
+    - Quête active: ${playerInfos.activeQuest ? playerInfos.activeQuest : "Aucune"}
+    - Équipement: ${playerInfos.equipment ? playerInfos.equipment : "Aucun"}
+  `;
+
+  if (isFromInit) {
+    conversation.push({ role: "system", content: playerContextPrompt });
+  } else {
+    conversation[1] = { role: "system", content: playerContextPrompt };
+  }
+
   return conversation;
 };
+

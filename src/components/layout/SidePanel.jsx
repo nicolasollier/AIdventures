@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { SidePanelContext } from "../../contexts/SidePanelContext";
+import { PlayerContext } from "../../contexts/PlayerContext";
 import {
   Box,
   VStack,
@@ -14,7 +14,7 @@ import CloseIcon from "../icons/CloseIcon";
 
 const SidePanel = () => {
   const { isOpen, setIsOpen, playerInfos, setPlayerInfos } =
-    useContext(SidePanelContext);
+    useContext(PlayerContext);
 
   const togglePanel = () => {
     setIsOpen(!isOpen);
