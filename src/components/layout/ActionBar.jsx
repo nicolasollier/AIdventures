@@ -15,13 +15,13 @@ const ActionBar = ({
 
   function throwDice() {
     const dice = Math.floor(Math.random() * 20) + 1;
-    setUserInput(`J'ai jeté un dé et j'ai obtenu ${dice} !`);
+    setUserInput(`J'ai jeté un dé 20 et j'ai obtenu ${dice} !`);
     
     setUserInput("");
     setIsLoading(true);
 
     updateConversation(
-      `J'ai jeté un dé et j'ai obtenu ${dice} !`,
+      `J'ai jeté un dé 20 et j'ai obtenu ${dice} !`,
       conversation,
       setConversation,
       playerInfos
