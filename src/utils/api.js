@@ -3,7 +3,7 @@ import { conversation, handlePlayerInfos } from "../services/conversation";
 
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 const OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
-const HISTORY_LENGTH = 20;
+const HISTORY_LENGTH = 21;
 
 const openai = axios.create({
   baseURL: OPENAI_API_URL,
@@ -14,14 +14,13 @@ const openai = axios.create({
 
 export const initConversation = async (setConversation, playerInfos) => {
   let isFromInit = true;
-  
+  handlePlayerInfos(playerInfos, conversation, isFromInit);
+
   try {
     const response = await openai.post("", {
       model: "gpt-3.5-turbo",
       messages: conversation,
     });
-
-    handlePlayerInfos(playerInfos, conversation, isFromInit);
 
     const newMessage = response.data.choices[0].message;
     const updatedConversation = [...conversation, newMessage];
@@ -41,10 +40,9 @@ export const updateConversation = async (
   playerInfos
 ) => {
   let isFromInit = false;
+  handlePlayerInfos(playerInfos, currentConversation, isFromInit);
 
   try {
-    handlePlayerInfos(playerInfos, currentConversation, isFromInit);
-
     let updatedConversation = [
       ...currentConversation,
       { role: "user", content: playerChoice },
