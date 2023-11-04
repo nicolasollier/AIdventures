@@ -1,5 +1,5 @@
 import { Box, Text, VStack, HStack, Spacer } from "@chakra-ui/react";
-import ActionBar from "./layout/ActionBar";
+import ActionBar from "../components/layout/ActionBar";
 import { initConversation } from "../utils/api";
 import { useEffect, useState, useRef } from "react";
 import { useConversation } from "../hooks/useConversation";
@@ -33,6 +33,7 @@ const Chatbox = () => {
       flex={1}
       overflowY={"auto"}
       mb={24}
+      mt={24}
       pt={[3, 6]}
       pb={[12, 24]}
       px={[6, 12]}

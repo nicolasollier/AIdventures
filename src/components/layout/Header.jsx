@@ -10,7 +10,7 @@ const Header = () => {
     <Box
       w={"100%"}
       zIndex={10}
-      position={"sticky"}
+      position={"fixed"}
       top={0}
       p={"6"}
       boxShadow="2xl"
