@@ -2,8 +2,8 @@ import axios from "axios";
 import { conversation, handlePlayerInfos } from "../services/conversation";
 
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
-const OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
-const HISTORY_LENGTH = 21;
+const OPENAI_API_URL = import.meta.env.VITE_OPENAI_API_URL;
+const HISTORY_LENGTH = import.meta.env.VITE_HISTORY_LENGTH;
 
 const openai = axios.create({
   baseURL: OPENAI_API_URL,
