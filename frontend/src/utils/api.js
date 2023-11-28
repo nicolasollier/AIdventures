@@ -11,6 +11,9 @@ const openai = axios.create({
     Authorization: `Bearer ${OPENAI_API_KEY}`,
   },
 });
+const api = axios.create({
+  baseURL: "/api",
+});
 
 export const initConversation = async (setConversation, playerInfos) => {
   let isFromInit = true;
@@ -26,6 +29,12 @@ export const initConversation = async (setConversation, playerInfos) => {
     const updatedConversation = [...conversation, newMessage];
 
     setConversation(updatedConversation);
+
+    api.post("/conversations", {
+      id: window.location.pathname.split("/")[2],
+      messages: updatedConversation,
+    })
+
     // console.log(updatedConversation)
   } catch (error) {
     console.error(error);
@@ -64,6 +73,12 @@ export const updateConversation = async (
     updatedConversation = [...updatedConversation, newMessage];
 
     setConversation(updatedConversation);
+
+    api.post(`/conversations/${window.location.pathname.split("/")[2]}`, {
+      id: window.location.pathname.split("/")[2],
+      messages: updatedConversation,
+    })
+
     // console.log(updatedConversation)
   } catch (error) {
     console.error(error);

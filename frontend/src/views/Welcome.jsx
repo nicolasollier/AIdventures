@@ -9,6 +9,7 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { PlayerContext } from "../contexts/PlayerContext";
@@ -36,7 +37,7 @@ const Welcome = () => {
       alignment: alignment,
     });
 
-    navigate("/conversation");
+    navigate("/conversation/" + uuidv4(), { replace: true });
   };
 
   const races = {

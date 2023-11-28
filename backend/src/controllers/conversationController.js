@@ -1,24 +1,56 @@
+const Conversation = require("../models/Conversation");
 const Message = require("../models/Message");
 
 const conversationController = {
-  async createMessage(req, res) {
+  getAllMessages: async (req, res) => {
     try {
-      const { content } = req.body;
-      const newMessage = await Message.create({ content });
+      const conversationId = req.params.conversationId;
+      const conversation = await Conversation.findById(conversationId);
 
-      res.status(201).json(newMessage);
-    } catch (error) {
-      res.status(400).json({ error: error.message });
+      if (!conversation) {
+        return res.status(404).send("Conversation not found");
+      }
+
+      res.json(conversation.messages);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send();
     }
   },
 
-  async getAllMessages(req, res) {
+  createConversation: async (req, res) => {
     try {
-      const messages = await Message.find();
+      const { id, messages } = req.body;
 
-      res.status(200).json(messages);
-    } catch (error) {
-      res.status(400).json({ error: error.message });
+      const conversation = await Conversation.create({
+        _id: id,
+        messages,
+      });
+
+      res.json(conversation);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send();
+    }
+  },
+
+  addMessage: async (req, res) => {
+    try {
+      const { id, messages } = req.body;
+      const conversation = await Conversation.findById(id);
+
+      if (!conversation) {
+        console.log('error')
+        return res.status(404).send("Conversation not found");
+      }
+
+      conversation.messages = [...messages];
+      await conversation.save();
+
+      res.send();
+    } catch (err) {
+      console.error(err);
+      res.status(500).send();
     }
   },
 };
