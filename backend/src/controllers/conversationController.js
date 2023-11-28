@@ -1,5 +1,4 @@
 const Conversation = require("../models/Conversation");
-const Message = require("../models/Message");
 
 const conversationController = {
   getConversation: async (req, res) => {
@@ -9,7 +8,7 @@ const conversationController = {
       !conversationId && res.status(400).send("Missing conversationId");
 
       const conversation = await Conversation.findById(conversationId);
-      
+
       res.json(conversation.messages);
     } catch (err) {
       console.error(err);

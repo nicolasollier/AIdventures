@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 const OPENAI_API_URL = import.meta.env.VITE_OPENAI_API_URL;
-// const HISTORY_LENGTH = import.meta.env.VITE_HISTORY_LENGTH;
+const HISTORY_LENGTH = import.meta.env.VITE_HISTORY_LENGTH;
 
 const openai = axios.create({
   baseURL: OPENAI_API_URL,
@@ -83,11 +83,9 @@ export const updateConversation = async (playerResponse) => {
     const newMessage = gptResponse.data.choices[0].message;
     updatedConversation.push(newMessage);
 
-    // if (updatedConversation.length > HISTORY_LENGTH) {
-    //   updatedConversation = updatedConversation.slice(
-    //     updatedConversation.length - HISTORY_LENGTH
-    //   );
-    // }
+    if (updatedConversation.length > HISTORY_LENGTH) {
+      updatedConversation = updatedConversation.slice(0, 2).concat(updatedConversation.slice(2));
+    }
 
     await api.put(`/conversation`, {
       id: conversationId,
