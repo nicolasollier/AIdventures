@@ -9,7 +9,7 @@ const conversationController = {
       !conversationId && res.status(400).send("Missing conversationId");
 
       const conversation = await Conversation.findById(conversationId);
-      console.log(conversation)
+      
       res.json(conversation.messages);
     } catch (err) {
       console.error(err);

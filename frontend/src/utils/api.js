@@ -75,7 +75,6 @@ export const updateConversation = async (playerResponse) => {
       return { role: message.role, content: message.content };
     });
 
-
     const gptResponse = await openai.post("", {
       model: "gpt-3.5-turbo",
       messages: updatedConversation,
@@ -95,9 +94,7 @@ export const updateConversation = async (playerResponse) => {
       messages: updatedConversation,
     });
 
-    console.log(updatedConversation)
     return updatedConversation;
-    
   } catch (error) {
     console.error(error);
     return "Error while updating conversation";
