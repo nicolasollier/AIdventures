@@ -26,7 +26,7 @@ export const initConversation = async (setConversation, playerInfos) => {
     const updatedConversation = [...conversation, newMessage];
 
     setConversation(updatedConversation);
-    console.log(updatedConversation)
+    // console.log(updatedConversation)
   } catch (error) {
     console.error(error);
     return "Error while initializing conversation";
@@ -64,7 +64,7 @@ export const updateConversation = async (
     updatedConversation = [...updatedConversation, newMessage];
 
     setConversation(updatedConversation);
-    console.log(updatedConversation)
+    // console.log(updatedConversation)
   } catch (error) {
     console.error(error);
     return "Error while updating conversation";
