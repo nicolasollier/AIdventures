@@ -2,15 +2,14 @@ const Conversation = require("../models/Conversation");
 const Message = require("../models/Message");
 
 const conversationController = {
-  getAllMessages: async (req, res) => {
+  getConversation: async (req, res) => {
     try {
-      const conversationId = req.params.conversationId;
+      const { conversationId } = req.query;
+
+      !conversationId && res.status(400).send("Missing conversationId");
+
       const conversation = await Conversation.findById(conversationId);
-
-      if (!conversation) {
-        return res.status(404).send("Conversation not found");
-      }
-
+      console.log(conversation)
       res.json(conversation.messages);
     } catch (err) {
       console.error(err);
@@ -34,7 +33,7 @@ const conversationController = {
     }
   },
 
-  addMessage: async (req, res) => {
+  updateConversation: async (req, res) => {
     try {
       const { id, messages } = req.body;
       const conversation = await Conversation.findById(id);

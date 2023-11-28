@@ -1,9 +1,10 @@
 import axios from "axios";
-import { conversation, handlePlayerInfos } from "../services/conversation";
+import { contextPrompt } from "../utils/contextPrompt";
+import { v4 as uuidv4 } from "uuid";
 
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 const OPENAI_API_URL = import.meta.env.VITE_OPENAI_API_URL;
-const HISTORY_LENGTH = import.meta.env.VITE_HISTORY_LENGTH;
+// const HISTORY_LENGTH = import.meta.env.VITE_HISTORY_LENGTH;
 
 const openai = axios.create({
   baseURL: OPENAI_API_URL,
@@ -11,75 +12,92 @@ const openai = axios.create({
     Authorization: `Bearer ${OPENAI_API_KEY}`,
   },
 });
+
 const api = axios.create({
   baseURL: "/api",
 });
 
-export const initConversation = async (setConversation, playerInfos) => {
-  let isFromInit = true;
-  handlePlayerInfos(playerInfos, conversation, isFromInit);
+const conversationId = localStorage.getItem("conversationId");
+const playerInfos = localStorage.getItem("playerInfos");
 
+export const initConversation = async () => {
   try {
-    const response = await openai.post("", {
-      model: "gpt-3.5-turbo",
-      messages: conversation,
-    });
+    if (conversationId) {
+      const response = await api.get(`/conversation`, {
+        params: { conversationId: conversationId },
+      });
 
-    const newMessage = response.data.choices[0].message;
-    const updatedConversation = [...conversation, newMessage];
+      return response.data;
 
-    setConversation(updatedConversation);
+    } else if (!conversationId) {
+      const newConversation = [
+        { role: "system", content: contextPrompt },
+        { role: "system", content: playerInfos },
+      ]
+      
+      const gptResponse = await openai.post("", {
+        model: "gpt-3.5-turbo",
+        messages: newConversation,
+      });
 
-    api.post("/conversations", {
-      id: window.location.pathname.split("/")[2],
-      messages: updatedConversation,
-    })
+      const newMessage = gptResponse.data.choices[0].message;
+      newConversation.push(newMessage);
 
-    // console.log(updatedConversation)
+      const response = await api.post(`/conversation`, {
+        id: uuidv4(),
+        messages: newConversation,
+      });
+
+      localStorage.setItem("conversationId", response.data._id);
+      return response.data.messages;
+    }
   } catch (error) {
     console.error(error);
     return "Error while initializing conversation";
   }
 };
 
-export const updateConversation = async (
-  playerChoice,
-  currentConversation,
-  setConversation,
-  playerInfos
-) => {
-  let isFromInit = false;
-  handlePlayerInfos(playerInfos, currentConversation, isFromInit);
-
+export const updateConversation = async (playerResponse) => {
   try {
-    let updatedConversation = [
-      ...currentConversation,
-      { role: "user", content: playerChoice },
+    let updatedConversation = [];
+
+    const response = await api.get(`/conversation`, {
+      params: { conversationId: conversationId },
+    });
+
+    updatedConversation = [
+      ...response.data,
+      { role: "user", content: playerResponse },
     ];
-    setConversation(updatedConversation);
+    
+    //filter updatedConversation to remove _id and timestamp and be compliant to GPT
+    updatedConversation = updatedConversation.map((message) => {
+      return { role: message.role, content: message.content };
+    });
 
-    if (updatedConversation.length > HISTORY_LENGTH) {
-      updatedConversation = updatedConversation.slice(0, 2).concat(
-        updatedConversation.slice(2).slice(-(HISTORY_LENGTH - 2))
-      );
-    }
 
-    const response = await openai.post("", {
+    const gptResponse = await openai.post("", {
       model: "gpt-3.5-turbo",
       messages: updatedConversation,
     });
 
-    const newMessage = response.data.choices[0].message;
-    updatedConversation = [...updatedConversation, newMessage];
+    const newMessage = gptResponse.data.choices[0].message;
+    updatedConversation.push(newMessage);
 
-    setConversation(updatedConversation);
+    // if (updatedConversation.length > HISTORY_LENGTH) {
+    //   updatedConversation = updatedConversation.slice(
+    //     updatedConversation.length - HISTORY_LENGTH
+    //   );
+    // }
 
-    api.post(`/conversations/${window.location.pathname.split("/")[2]}`, {
-      id: window.location.pathname.split("/")[2],
+    await api.put(`/conversation`, {
+      id: conversationId,
       messages: updatedConversation,
-    })
+    });
 
-    // console.log(updatedConversation)
+    console.log(updatedConversation)
+    return updatedConversation;
+    
   } catch (error) {
     console.error(error);
     return "Error while updating conversation";

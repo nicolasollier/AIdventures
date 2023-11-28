@@ -9,15 +9,10 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { PlayerContext } from "../contexts/PlayerContext";
 
 const Welcome = () => {
   const navigate = useNavigate();
-
-  const { setPlayerInfos } = useContext(PlayerContext);
 
   const [race, setRace] = useState("");
   const [characterClass, setCharacterClass] = useState("");
@@ -26,7 +21,7 @@ const Welcome = () => {
   const [gender, setGender] = useState("");
 
   const handleSetPlayerInfos = async () => {
-    await setPlayerInfos({
+    const playerInfos = {
       hp: 100,
       activeQuest: "N/A",
       equipment: "N/A",
@@ -35,9 +30,10 @@ const Welcome = () => {
       gender: gender,
       characterClass: characterClass,
       alignment: alignment,
-    });
+    }
 
-    navigate("/conversation/" + uuidv4(), { replace: true });
+    localStorage.setItem("playerInfos", JSON.stringify(playerInfos));
+    navigate("/conversation");
   };
 
   const races = {
