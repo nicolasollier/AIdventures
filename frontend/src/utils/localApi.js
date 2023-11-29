@@ -16,6 +16,7 @@ export const initConversation = async () => {
     const response = await api.get(`/conversation`, {
       params: { conversationId: conversationId },
     });
+
     return response.data;
   } else {
     const playerInfos = localStorage.getItem("playerInfos");
@@ -25,8 +26,9 @@ export const initConversation = async () => {
     ];
 
     const newMessage = await postToOpenAI(newConversation);
-    newConversation.push({ role: "assistant", content: newMessage });
+    newConversation.push({ role: "assistant", content: newMessage.content });
 
+    console.log(newConversation)
     const response = await api.post(`/conversation`, {
       id: uuidv4(),
       messages: newConversation,
@@ -55,7 +57,7 @@ export const updateConversation = async (playerResponse) => {
   });
 
   const newMessage = await postToOpenAI(updatedConversation);
-  updatedConversation.push({ role: "assistant", content: newMessage });
+  updatedConversation.push({ role: "assistant", content: newMessage.content });
 
   if (updatedConversation.length > HISTORY_LENGTH) {
     updatedConversation = updatedConversation
