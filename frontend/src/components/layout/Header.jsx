@@ -2,9 +2,13 @@ import { Box, Text } from "@chakra-ui/react";
 import { useContext } from "react";
 import SidePanelIcon from "../icons/sidePanelIcon";
 import { PlayerContext } from "../../contexts/PlayerContext";
+import { logoutUser } from "../../utils/authApi";
 
 const Header = () => {
   const { isOpen, setIsOpen } = useContext(PlayerContext);
+  const handleLogout = async () => {
+    await logoutUser();
+  }
 
   return (
     <Box
@@ -35,6 +39,20 @@ const Header = () => {
           }}
         >
           <SidePanelIcon />
+        </Box>
+        <Box
+          bgColor={"red.700"}
+          onClick={() => handleLogout()}
+          transition={"all 0.2s"}
+          borderRadius={"full"}
+          py={3}
+          px={6}
+          _hover={{
+            cursor: "pointer",
+            bgColor: "red.600",
+          }}
+        >
+          <Text>Logout</Text>
         </Box>
       </Box>
     </Box>

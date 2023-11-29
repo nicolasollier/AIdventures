@@ -32,3 +32,13 @@ export const loginUser = async (credentials) => {
     throw error;
   }
 };
+
+export const logoutUser = async () => {
+  try {
+    await api.post("/auth/logout");
+    window.location.href = "/login";
+  } catch (error) {
+    console.error("Error while logout", error);
+    throw error;
+  }
+};
