@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { VStack, Input, Button, Box, Text } from "@chakra-ui/react";
 import { loginUser } from "../utils/authApi";
 import { useNavigate } from "react-router-dom";
+import { getConversationId } from "../utils/localStorageUtils";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -17,7 +18,13 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await loginUser(loginData);
-    navigate('/')
+    const conversationId = await getConversationId();
+
+    if (conversationId) {
+      navigate("/conversation");
+    } else {
+      navigate("/");
+    }
   };
 
   return (
