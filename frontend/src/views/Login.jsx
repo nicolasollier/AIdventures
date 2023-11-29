@@ -23,7 +23,7 @@ const LoginForm = () => {
       flexDirection={"column"}
       alignItems={"center"}
       width={"full"}
-      maxW={"md"}
+      maxW={"lg"}
       p={6}
       boxShadow={"lg"}
       borderRadius={5}
