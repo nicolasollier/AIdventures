@@ -2,12 +2,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
+import AppLayout from "../components/layout/AppLayout";
 
 import Chatbox from "../views/Chatbox";
 import Welcome from "../views/Welcome";
 import NotFound from "../views/NotFound";
 import Login from "../views/Login";
-import Register from "../views/Register";
+// import Register from "../views/Register";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, isLoading } = useContext(AuthContext);
@@ -27,17 +28,20 @@ const Router = () => {
           path="/"
           element={
             <ProtectedRoute>
-              <Welcome />
+              <AppLayout>
+                <Welcome />
+              </AppLayout>
             </ProtectedRoute>
           }
         />
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/register" element={<Register />} /> */}
         <Route
           path="/conversation"
           element={
             <ProtectedRoute>
-              <Chatbox />
+              <AppLayout>
+                <Chatbox />
+              </AppLayout>
             </ProtectedRoute>
           }
         />

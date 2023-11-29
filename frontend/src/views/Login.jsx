@@ -28,24 +28,38 @@ const LoginForm = () => {
       boxShadow={"lg"}
       borderRadius={5}
     >
-      <VStack spacing={4} width="full">
-        <Text fontSize="2xl" fontWeight="bold">
-          Connexion
+      <VStack spacing={6} width="full">
+        <Text fontSize="xl">AIdventures</Text>
+        <Text fontSize="sm" fontWeight="regular" opacity="0.5" mb={4}>
+          Veuillez entrez vos identifiants pour vous connecter à la plateforme.
         </Text>
-        <Input
-          placeholder="Email"
-          name="email"
-          value={loginData.email}
-          onChange={handleChange}
-        />
-        <Input
-          placeholder="Mot de passe"
-          name="password"
-          type="password"
-          value={loginData.password}
-          onChange={handleChange}
-        />
-        <Button width="full" onClick={handleSubmit}>
+
+        <Box width="full">
+          <Text mb={2} fontSize="sm">
+            Email
+          </Text>
+          <Input
+            placeholder="Email"
+            name="email"
+            value={loginData.email}
+            onChange={handleChange}
+          />
+        </Box>
+
+        <Box width="full">
+          <Text mb={2} fontSize="sm">
+            Password
+          </Text>
+          <Input
+            placeholder="Mot de passe"
+            name="password"
+            type="password"
+            value={loginData.password}
+            onChange={handleChange}
+          />
+        </Box>
+
+        <Button mt={4} width="full" onClick={handleSubmit}>
           Se connecter
         </Button>
       </VStack>

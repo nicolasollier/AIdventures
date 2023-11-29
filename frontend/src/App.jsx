@@ -1,7 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import Header from "./components/layout/Header";
 import Router from "./router/router";
-import SidePanel from "./components/layout/SidePanel";
 
 function App() {
   return (
@@ -16,8 +14,6 @@ function App() {
       minHeight="100vh"
       fontFamily="monospace"
     >
-      <Header />
-      <SidePanel />
       <Router />
     </Box>
   );
