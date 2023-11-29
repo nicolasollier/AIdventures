@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { VStack, Input, Button, Box, Text } from "@chakra-ui/react";
 import { loginUser } from "../utils/authApi";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -15,6 +17,7 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await loginUser(loginData);
+    navigate('/')
   };
 
   return (
