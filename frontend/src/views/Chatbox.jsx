@@ -1,6 +1,6 @@
 import { Box, Text, VStack, HStack, Spacer } from "@chakra-ui/react";
 import ActionBar from "../components/layout/ActionBar";
-import { initConversation } from "../utils/api";
+import { initConversation } from "../utils/localApi";
 import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 

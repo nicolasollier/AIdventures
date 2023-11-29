@@ -1,5 +1,5 @@
 import { Box, Spinner, Button, InputGroup, Input } from "@chakra-ui/react";
-import { updateConversation } from "../../utils/api";
+import { updateConversation } from "../../utils/localApi";
 import { useState } from "react";
 
 const ActionBar = ({

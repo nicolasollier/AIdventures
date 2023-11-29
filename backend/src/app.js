@@ -1,9 +1,11 @@
 const connectDB = require('./config/db');
 const express = require('express');
 const routes = require('./routes/routes');
+const cookieParser = require('cookie-parser');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+app.use(cookieParser());
 
 connectDB();
 
