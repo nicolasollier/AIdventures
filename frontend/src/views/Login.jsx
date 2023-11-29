@@ -8,13 +8,29 @@ const LoginForm = () => {
     password: "",
   });
 
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+  });
+
   const handleChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
+    setErrors({ ...errors, [e.target.name]: "" });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await loginUser(loginData);
+
+    try {
+      await loginUser(loginData);
+    } catch (error) {
+      if (error.response.data.includes("email")) {
+        setErrors({ ...errors, email: error.response.data });
+      }
+      if (error.response.data.includes("password")) {
+        setErrors({ ...errors, password: error.response.data });
+      }
+    }
   };
 
   return (
@@ -43,7 +59,13 @@ const LoginForm = () => {
             name="email"
             value={loginData.email}
             onChange={handleChange}
+            borderColor={errors.email ? "red.500" : "gray.200"}
           />
+          {errors.email && (
+            <Text color="red.500" mt={2}>
+              {errors.email}
+            </Text>
+          )}
         </Box>
 
         <Box width="full">
@@ -56,7 +78,13 @@ const LoginForm = () => {
             type="password"
             value={loginData.password}
             onChange={handleChange}
+            borderColor={errors.password ? "red.500" : "gray.200"}
           />
+          {errors.password && (
+            <Text color="red.500" mt={2}>
+              {errors.password}
+            </Text>
+          )}
         </Box>
 
         <Button mt={4} width="full" onClick={handleSubmit}>
