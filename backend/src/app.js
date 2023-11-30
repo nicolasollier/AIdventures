@@ -1,5 +1,5 @@
 const Sentry = require('@sentry/node');
-const { ProfilingIntegration } = require('@sentry/profiling-node');
+// const { ProfilingIntegration } = require('@sentry/profiling-node');
 const express = require('express');
 const connectDB = require('./config/db');
 const routes = require('./routes/routes');
@@ -14,7 +14,7 @@ Sentry.init({
   integrations: [
     new Sentry.Integrations.Http({ tracing: true }),
     new Sentry.Integrations.Express({ app }),
-    new ProfilingIntegration(),
+    // new ProfilingIntegration(),
   ],
   tracesSampleRate: 1.0,
   profilesSampleRate: 1.0,
