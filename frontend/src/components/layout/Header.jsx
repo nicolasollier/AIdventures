@@ -1,6 +1,6 @@
 import { Box, Text } from "@chakra-ui/react";
 import { useContext } from "react";
-import SidePanelIcon from "../icons/sidePanelIcon";
+import SidePanelIcon from "../icons/SidePanelIcon";
 import { PlayerContext } from "../../contexts/PlayerContext";
 import { logoutUser } from "../../utils/authApi";
 
