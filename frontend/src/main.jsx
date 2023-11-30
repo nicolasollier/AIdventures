@@ -19,7 +19,7 @@ Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
   integrations: [
     new Integrations.BrowserTracing({
-      tracePropagationTargets: ["localhost", "/api"],
+      tracePropagationTargets: ["localhost", /^https:\/\/aidventures-8gaow.ondigitalocean.app/],
     }),
     new Sentry.Replay(),
   ],
