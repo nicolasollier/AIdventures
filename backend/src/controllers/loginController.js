@@ -28,18 +28,12 @@ const handleLogin = async (req, res) => {
     if (!validPass) return res.status(400).send("Incorrect email or password");
 
     const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-    const cookieOptions = {
+
+    res.cookie('auth-token', token, {
       httpOnly: true,
-      sameSite: 'Strict',
-    };
-    
-    if (process.env.NODE_ENV === 'production') {
-      cookieOptions.secure = true;
-      cookieOptions.sameSite = 'None';
-      cookieOptions.domain = '.ondigitalocean.app';
-    }
-    
-    res.cookie('auth-token', token, cookieOptions).send("Connexion réussie");
+      secure: true,
+      sameSite: 'None',
+    }).send("Connexion réussie");
   } catch (error) {
     res.status(500).send("Server error");
   }

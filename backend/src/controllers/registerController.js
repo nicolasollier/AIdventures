@@ -2,7 +2,7 @@ const Joi = require("joi");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-require('dotenv').config();
+require("dotenv").config();
 
 const registerValidation = (data) => {
   const schema = Joi.object({
@@ -38,11 +38,13 @@ const handleRegister = async (req, res) => {
 
     const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
 
-    res.cookie('auth-token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-    }).send("Inscription réussie");
+    res
+      .cookie("auth-token", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None",
+      })
+      .send("Inscription réussie");
   } catch (error) {
     res.status(500).send("Server error");
   }
