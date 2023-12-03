@@ -34,7 +34,6 @@ const Router = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="/login" element={<Login />} />
         <Route
           path="/conversation"
           element={
@@ -45,6 +44,7 @@ const Router = () => {
             </ProtectedRoute>
           }
         />
+        <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

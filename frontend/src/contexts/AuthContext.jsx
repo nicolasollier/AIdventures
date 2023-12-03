@@ -10,6 +10,11 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     axios.defaults.withCredentials = true;
 
+    if (window.location.pathname === "/login") {
+      setIsLoading(false);
+      return;
+    }
+    
     const verifyAuth = async () => {
       try {
         await axios.get("/api/auth/verify");
