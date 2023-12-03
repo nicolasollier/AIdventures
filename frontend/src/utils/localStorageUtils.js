@@ -1,5 +1,6 @@
 export const getConversationId = () => {
-  return localStorage.getItem("conversationId");
+  const conversationId = localStorage.getItem("conversationId");
+  return conversationId;
 };
 
 export const setConversationId = (id) => {
