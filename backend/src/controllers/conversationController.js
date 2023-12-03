@@ -5,6 +5,7 @@ const conversationController = {
     try {
       const { conversationId } = req.query;
 
+      console.log(conversationId);
       !conversationId && res.status(400).send("Missing conversationId");
 
       const conversation = await Conversation.findById(conversationId);
@@ -12,7 +13,7 @@ const conversationController = {
       res.json(conversation.messages);
     } catch (err) {
       console.error(err);
-      res.status(500).send();
+      res.status(500).send("Error while fetching conversation");
     }
   },
 
