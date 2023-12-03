@@ -28,6 +28,11 @@ export const initConversation = async () => {
     const newMessage = await postToOpenAI(newConversation);
     newConversation.push({ role: "assistant", content: newMessage.content });
 
+    console.log("text uuid", uuidv4(), {
+      id: uuidv4(),
+      messages: newConversation,
+    });
+
     const response = await api.post(`/conversation`, {
       id: uuidv4(),
       messages: newConversation,
