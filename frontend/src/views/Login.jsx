@@ -45,7 +45,7 @@ const LoginForm = () => {
       borderRadius={5}
     >
       <VStack spacing={6} width="full">
-        <Text fontSize="xl">AIdventures</Text>
+        <Text fontSize="xl">TaleForge</Text>
         <Text textAlign="center" fontSize="sm" fontWeight="regular" opacity="0.5" mb={4}>
           Veuillez entrez vos identifiants pour <br /> vous connecter à la plateforme.
         </Text>
