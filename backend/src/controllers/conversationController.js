@@ -5,7 +5,6 @@ const conversationController = {
     try {
       const { conversationId } = req.query;
 
-      console.log(conversationId);
       !conversationId && res.status(400).send("Missing conversationId");
 
       const conversation = await Conversation.findById(conversationId);

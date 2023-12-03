@@ -10,15 +10,22 @@ const api = axios.create({
 });
 
 export const initConversation = async () => {
+  console.log("initConversation")
   const conversationId = getConversationId();
 
   if (conversationId) {
+    console.log("conversationId found", conversationId);
     const response = await api.get(`/conversation`, {
       params: { conversationId: conversationId },
     });
 
     return response.data;
   } else {
+    console.log("conversationId not found generating a new one...", uuidv4(), {
+      id: uuidv4(),
+      messages: newConversation,
+    });
+
     const playerInfos = localStorage.getItem("playerInfos");
     const newConversation = [
       { role: "system", content: contextPrompt },
@@ -27,11 +34,6 @@ export const initConversation = async () => {
 
     const newMessage = await postToOpenAI(newConversation);
     newConversation.push({ role: "assistant", content: newMessage.content });
-
-    console.log("text uuid", uuidv4(), {
-      id: uuidv4(),
-      messages: newConversation,
-    });
 
     const response = await api.post(`/conversation`, {
       id: uuidv4(),
