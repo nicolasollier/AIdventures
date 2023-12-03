@@ -1,10 +1,10 @@
-const Sentry = require('@sentry/node');
+const Sentry = require("@sentry/node");
 // const { ProfilingIntegration } = require('@sentry/profiling-node');
-const express = require('express');
-const connectDB = require('./config/db');
-const routes = require('./routes/routes');
-const cookieParser = require('cookie-parser');
-require('dotenv').config();
+const express = require("express");
+const connectDB = require("./config/db");
+const routes = require("./routes/routes");
+const cookieParser = require("cookie-parser");
+require("dotenv").config();
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -24,11 +24,17 @@ app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
 app.use(cookieParser());
 
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  next();
+});
+
 connectDB();
 
 app.use(express.json());
 
-app.use('/api', routes);
+app.use("/api", routes);
 app.use(Sentry.Handlers.errorHandler());
 
 // Optional fallthrough error handler

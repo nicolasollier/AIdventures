@@ -27,3 +27,5 @@ frontend/.env
 *.njsproj
 *.sln
 *.sw?
+Aidventures/bruno.json
+Aidventures/*.bru
