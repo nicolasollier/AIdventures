@@ -12,7 +12,7 @@ const conversationController = {
       res.json(conversation.messages);
     } catch (err) {
       console.error(err);
-      res.status(500).send("Error while fetching conversation");
+      res.status(500).send();
     }
   },
 

@@ -12,7 +12,7 @@ const api = axios.create({
 export const initConversation = async () => {
   const conversationId = getConversationId();
 
-  if (conversationId || conversationId !== "undefined" || conversationId !== null) {
+  if (conversationId) {
     const response = await api.get(`/conversation`, {
       params: { conversationId: conversationId },
     });
