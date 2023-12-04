@@ -19,7 +19,7 @@ import "./index.css";
 //   dsn: import.meta.env.VITE_SENTRY_DSN,
 //   integrations: [
 //     new Integrations.BrowserTracing({
-//       tracePropagationTargets: ["localhost", /^https:\/\/taleforge.io/],
+//       tracePropagationTargets: ["localhost", /^https:\/\/magetales.io/],
 //     }),
 //     new Sentry.Replay(),
 //   ],
