@@ -29,10 +29,12 @@ const SettingsDropdown = () => {
       {isOpen && (
         <div className={styles.dropdown__menu}>
           <ul className={styles.dropdown__menu__list}>
-            <li className={styles.dropdown__menu__list__item}>
+            {/* <li className={styles.dropdown__menu__list__item}>
               <span>Personnage</span>
-            </li>
-            <li className={styles.dropdown__menu__list__item}>
+            </li> */}
+            <li
+              className={`${styles.dropdown__menu__list__item} ${styles.danger}`}
+            >
               <span onClick={() => logoutUser()}>Déconnection</span>
             </li>
           </ul>

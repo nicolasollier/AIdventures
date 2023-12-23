@@ -25,6 +25,7 @@
     background-color: $light-gray;
     transition: all 0.1s ease-in-out;
     border-radius: $regular-radius;
+    overflow: hidden;
 
     &__list {
       list-style: none;
@@ -45,4 +46,15 @@
       }
     }
   }  
+}
+
+.danger {
+  &:hover {
+    color: #ffffff;
+    background-color: $red;
+  }
+  &:focus {
+    color: #ffffff;
+    background-color: $red;
+  }
 }
