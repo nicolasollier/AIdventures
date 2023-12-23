@@ -1,4 +1,4 @@
-import Header from '../layout/Header';
+import Header from './header/Header';
 import SidePanel from '../layout/SidePanel';
 
 const AppLayout = ({ children }) => {

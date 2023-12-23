@@ -9,16 +9,16 @@ const ActionBar = ({
 }) => {
   const [userInput, setUserInput] = useState("");
 
-  function throwDice() {
-    const dice = Math.floor(Math.random() * 20) + 1;
-    setIsLoading(true);
+  // function throwDice() {
+  //   const dice = Math.floor(Math.random() * 20) + 1;
+  //   setIsLoading(true);
 
-    updateConversation(`J'ai jeté un dé et j'ai obtenu ${dice}`).then(
-      (data) => {
-        setConversation(data);
-        setIsLoading(false);
-      });
-  }
+  //   updateConversation(`J'ai jeté un dé et j'ai obtenu ${dice}`).then(
+  //     (data) => {
+  //       setConversation(data);
+  //       setIsLoading(false);
+  //     });
+  // }
 
   function handleOptionClick(userResponse) {
     setUserInput("");
@@ -72,21 +72,6 @@ const ActionBar = ({
               _placeholder={{ opacity: 0.5, color: "white" }}
               py={6}
             />
-            <Button
-              onClick={() => throwDice()}
-              fontSize={["xs", "sm"]}
-              color={"white"}
-              bg={"gray.700"}
-              variant="solid"
-              py={6}
-              px={8}
-              ml={4}
-              _hover={{
-                bg: "gray.600",
-              }}
-            >
-              {"Jetter un dé"}
-            </Button>
 
             <Button
               onClick={() => handleOptionClick(userInput)}

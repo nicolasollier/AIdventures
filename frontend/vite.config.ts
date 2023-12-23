@@ -8,4 +8,11 @@ export default defineConfig({
     },
   },
   plugins: [react()],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "./src/styles/_variables.scss";`,
+      },
+    },
+  },
 });

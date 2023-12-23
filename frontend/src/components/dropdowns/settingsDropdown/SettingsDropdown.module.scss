@@ -1,0 +1,48 @@
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+  &__button {
+    padding: 10px;
+    background-color: $dark-gray;
+    transition: all 0.1s ease-in-out;
+    border-radius: $regular-radius;
+  
+    &:hover {
+      background-color: $light-gray;
+    }
+    &:focus {
+      outline: none;
+      background-color: $light-gray;
+    }
+  }
+  
+  &__menu {
+    position: absolute;
+    margin-top: 10px;
+    top: 100%;
+    right: 0;
+    background-color: $light-gray;
+    transition: all 0.1s ease-in-out;
+    border-radius: $regular-radius;
+
+    &__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      &__item {
+        width: 100%;
+        padding: 10px 20px;
+        cursor: pointer;
+        &:hover {
+          background-color: $mid-gray;
+        }
+        &:focus {
+          outline: none;
+          background-color: $mid-gray;
+        }
+      }
+    }
+  }  
+}
