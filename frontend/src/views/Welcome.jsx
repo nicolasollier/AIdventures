@@ -5,7 +5,6 @@ import {
   Select,
   FormControl,
   FormLabel,
-  Text,
   Input,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -30,7 +29,7 @@ const Welcome = () => {
       gender: gender,
       characterClass: characterClass,
       alignment: alignment,
-    }
+    };
 
     localStorage.setItem("playerInfos", JSON.stringify(playerInfos));
     navigate("/conversation");
@@ -59,7 +58,6 @@ const Welcome = () => {
   const genders = {
     femme: "Femme",
     homme: "Homme",
-    nonBinary: "Non binaire",
   };
 
   return (
@@ -156,72 +154,22 @@ const Welcome = () => {
             </Select>
           </FormControl>
         </Box>
-
-        <Flex
-          flexDir={"column"}
-          flex={1}
-          fontSize={["xs", "sm"]}
-          width="full"
-          height={["full", "520px"]}
-          justifyContent={"space-evenly"}
-          color="white"
-          rounded="md"
-          minHeight="sm"
-          px={6}
-          py={2}
-          ml={[0, 24]}
-        >
-          <Text fontSize="lg" mb={4} fontWeight="bold">
-            Résumé de votre personnage:
-          </Text>
-          <Text fontSize="md">
-            Nom:{" "}
-            <Text as="span" fontWeight="semibold">
-              {name || "N/A"}
-            </Text>
-          </Text>
-          <Text fontSize="md">
-            Genre:{" "}
-            <Text as="span" fontWeight="semibold">
-              {genders[gender] || "N/A"}
-            </Text>
-          </Text>
-          <Text fontSize="md">
-            Race:{" "}
-            <Text as="span" fontWeight="semibold">
-              {races[race] || "N/A"}
-            </Text>
-          </Text>
-          <Text fontSize="md">
-            Classe:{" "}
-            <Text as="span" fontWeight="semibold">
-              {classes[characterClass] || "N/A"}
-            </Text>
-          </Text>
-          <Text fontSize="md">
-            Alignement:{" "}
-            <Text as="span" fontWeight="semibold">
-              {alignments[alignment] || "N/A"}
-            </Text>
-          </Text>
-
-          <Button
-            w="100%"
-            fontSize={["xs", "sm"]}
-            color="white"
-            bg="gray.700"
-            py={6}
-            mt={12}
-            variant="solid"
-            _hover={{
-              bg: "gray.600",
-            }}
-            onClick={handleSetPlayerInfos}
-            >
-            Commencer l'aventure
-          </Button>
-        </Flex>
       </Flex>
+      <Button
+        w="100%"
+        fontSize={["xs", "sm"]}
+        color="white"
+        bg="gray.700"
+        py={6}
+        mt={12}
+        variant="solid"
+        _hover={{
+          bg: "gray.600",
+        }}
+        onClick={handleSetPlayerInfos}
+      >
+        Commencer l'aventure
+      </Button>
     </Box>
   );
 };
