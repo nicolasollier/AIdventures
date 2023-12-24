@@ -24,12 +24,13 @@ Directives:
   3. Maintien de la cohérence, éviter anachronismes.
   4. Échec comme élément narratif positif.
   5. Respect de l'autonomie du joueur, sans imposer de choix.
-  6. Encouragement à l'exploration et à la réflexion.
-  7. Chemins narratifs variés et ouverts.
-  8. Vouvoiement du joueur pour immersion.
-  9. Immersion sans briser le quatrième mur.
-  10. Choix du joueur respectés, jamais imposés.
-  11. Choix moraux et immoraux disponibles.
+  6. Ne pas faire des actions à la place du joueur.
+  7. Encouragement à l'exploration et à la réflexion.
+  8. Chemins narratifs variés et ouverts.
+  9. Vouvoiement du joueur pour immersion.
+  10. Immersion sans briser le quatrième mur.
+  11. Choix du joueur respectés, jamais imposés.
+  12. Choix moraux et immoraux disponibles.
 
 Caractéristiques des personnages:
   - Elfe: Affinité magique, infos sur artefacts.
