@@ -1,0 +1,55 @@
+.chatbox {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1280px;
+  flex: 1;
+  overflow-y: auto;
+  margin: 88px 24px 60px 24px;
+  padding: 24px 48px;
+
+  @media (max-width: 768px) {
+    padding: 24px;
+  }
+}
+
+.chatbox__messages {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: 16px;
+}
+
+.chatbox__message {
+  display: flex;
+  width: 100%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.chatbox__bubble {
+  max-width: 75%;
+  padding: 16px 24px;
+  border-radius: 10px;
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.chatbox__bubbleUser {
+  background-color: $light-gray;
+  margin-left: auto;
+}
+
+.chatbox__bubbleOther {
+  background-color: $mid-gray;
+}
+
+.chatbox__text {
+  font-size: $text-md;
+  font-weight: 500;
+  line-height: 1.6;
+  color: white;
+}

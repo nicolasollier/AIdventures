@@ -4,11 +4,10 @@ import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import AppLayout from "../components/layout/AppLayout";
 
-import Chatbox from "../views/Chatbox";
+import Chatbox from "../views/chatbox/Chatbox";
 import Welcome from "../views/welcome/Welcome";
 import NotFound from "../views/NotFound";
 import Login from "../views/Login";
-// import Register from "../views/Register";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, isLoading } = useContext(AuthContext);
