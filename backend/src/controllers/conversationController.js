@@ -51,6 +51,19 @@ const conversationController = {
       res.status(500).send();
     }
   },
+
+  deleteConversation: async (req, res) => {
+    try {
+      const { id } = req.body;
+
+      await Conversation.findByIdAndDelete(id);
+
+      res.send();
+    } catch (err) {
+      console.error(err);
+      res.status(500).send();
+    }
+  }
 };
 
 module.exports = conversationController;

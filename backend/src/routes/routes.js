@@ -19,5 +19,6 @@ router.post("/auth/logout", handleLogout);
 router.get("/conversation/", conversationController.getConversation);
 router.post("/conversation/", conversationController.createConversation);
 router.put("/conversation/", conversationController.updateConversation);
+router.delete("/conversation/", conversationController.deleteConversation);
 
 module.exports = router;

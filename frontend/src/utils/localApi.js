@@ -71,3 +71,14 @@ export const updateConversation = async (playerResponse) => {
 
   return updatedConversation;
 };
+
+export const deleteConversation = async () => {
+  const conversationId = getConversationId();
+
+  await api.delete(`/conversation`, {
+    data: { id: conversationId },
+  });
+
+  localStorage.removeItem("conversationId");
+  localStorage.removeItem("playerInfos");
+};
