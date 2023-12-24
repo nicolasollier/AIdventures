@@ -8,6 +8,11 @@ export const PlayerContextProvider = ({ children }) => {
     hp: 100,
     activeQuest: "N/A",
     equipment: "N/A",
+    name: "",
+    race: "",
+    gender: "",
+    class: "",
+    alignment: "",
   });
 
   return (

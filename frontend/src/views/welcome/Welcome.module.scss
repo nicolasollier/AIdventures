@@ -1,0 +1,90 @@
+.welcome {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1280px;
+  margin: 88px auto 0 auto;
+  padding: 24px;
+  font-size: $text-lg;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__formControl {
+    width: 100%;
+    flex: 1;
+    padding: 6px;
+    margin-bottom: 12px;
+
+    &__attrs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 10px;
+
+      @media (max-width: 768px) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      &_alignment {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 10px;
+
+        @media (max-width: 768px) {
+          grid-template-columns: repeat(1, 1fr);
+        }
+      }
+    }
+  }
+
+  &__label {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid $light-gray;
+    background-color: $dark-gray;
+    border-radius: 4px;
+
+    &:focus {
+      outline: none;
+      border: 1px solid $white;
+    }
+  }
+
+  &__button {
+    width: 100%;
+    font-size: $text-lg;
+    font-weight: 600;
+    color: $dark-gray;
+    background-color: $white;
+    padding: 12px;
+    margin-top: 12px;
+    border: none;
+    border-radius: 4px;
+    transition: $transition;
+    cursor: pointer;
+
+    @media (max-width: 768px) {
+      margin-top: 24px;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      background-color: $light-gray;
+      color: $white;
+      cursor: not-allowed;
+    }
+  }
+}
