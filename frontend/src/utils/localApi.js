@@ -59,9 +59,12 @@ export const updateConversation = async (playerResponse) => {
   updatedConversation.push({ role: "assistant", content: newMessage.content });
 
   if (updatedConversation.length > HISTORY_LENGTH) {
-    updatedConversation = updatedConversation
-      .slice(0, 2)
-      .concat(updatedConversation.slice(2));
+    const messageToRemove = updatedConversation.length - HISTORY_LENGTH;
+
+    updatedConversation = [
+      ...updatedConversation.slice(0, 2),
+      ...updatedConversation.slice(2 + messageToRemove)
+    ];
   }
 
   await api.put(`/conversation`, {
