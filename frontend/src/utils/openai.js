@@ -16,6 +16,9 @@ export const postToOpenAI = async (messages) => {
       model: "gpt-3.5-turbo",
       messages: messages,
       max_tokens: 200,
+      temperature: 0.9,
+      frequency_penalty: 0.5,
+      presence_penalty: 0.6,
     });
 
     return response.data.choices[0].message;
