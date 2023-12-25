@@ -1,6 +1,7 @@
 import { Box, Spinner, Button, InputGroup, Input } from "@chakra-ui/react";
+import { PlayerContext } from "../../contexts/PlayerContext";
 import { updateConversation } from "../../utils/localApi";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 const ActionBar = ({
   isLoading,
@@ -8,23 +9,13 @@ const ActionBar = ({
   setConversation,
 }) => {
   const [userInput, setUserInput] = useState("");
+  const { playerInfos } = useContext(PlayerContext);
 
-  // function throwDice() {
-  //   const dice = Math.floor(Math.random() * 20) + 1;
-  //   setIsLoading(true);
-
-  //   updateConversation(`J'ai jeté un dé et j'ai obtenu ${dice}`).then(
-  //     (data) => {
-  //       setConversation(data);
-  //       setIsLoading(false);
-  //     });
-  // }
-
-  function handleOptionClick(userResponse) {
+  function handleOptionClick(playerResponse) {
     setUserInput("");
     setIsLoading(true);
 
-    updateConversation(userResponse).then((data) => {
+    updateConversation(playerResponse || "Continuer", playerInfos).then((data) => {
       setConversation(data);
       setIsLoading(false);
     });

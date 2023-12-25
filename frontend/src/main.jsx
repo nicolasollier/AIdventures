@@ -7,6 +7,7 @@ import App from "./App.jsx";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 import { ConversationProvider } from "./contexts/ConversationContext.jsx";
 import { PlayerContextProvider } from "./contexts/PlayerContext.jsx";
+import { SidePanelContextProvider } from "./contexts/SidePanelContext.jsx";
 
 // Styles
 import { ChakraProvider } from "@chakra-ui/react";
@@ -19,7 +20,9 @@ root.render(
     <AuthProvider>
       <ConversationProvider>
         <PlayerContextProvider>
-          <App />
+          <SidePanelContextProvider>
+            <App />
+          </SidePanelContextProvider>
         </PlayerContextProvider>
       </ConversationProvider>
     </AuthProvider>

@@ -9,7 +9,7 @@ const api = axios.create({
   baseURL: "/api",
 });
 
-export const initConversation = async () => {
+export const initConversation = async (playerInfos) => {
   const conversationId = getConversationId();
 
   if (conversationId) {
@@ -19,10 +19,9 @@ export const initConversation = async () => {
 
     return response.data;
   } else {
-    const playerInfos = localStorage.getItem("playerInfos");
     const newConversation = [
       { role: "system", content: contextPrompt },
-      { role: "system", content: playerInfos },
+      { role: "system", content: JSON.stringify(playerInfos) },
     ];
 
     const newMessage = await postToOpenAI(newConversation);
@@ -38,7 +37,7 @@ export const initConversation = async () => {
   }
 };
 
-export const updateConversation = async (playerResponse) => {
+export const updateConversation = async (playerResponse, playerInfos) => {
   const conversationId = getConversationId();
   let updatedConversation = [];
 
@@ -50,6 +49,9 @@ export const updateConversation = async (playerResponse) => {
     ...response.data,
     { role: "user", content: playerResponse },
   ];
+
+  //Update player infos
+  updatedConversation[1].content = JSON.stringify(playerInfos);
 
   updatedConversation = updatedConversation.map((message) => {
     return { role: message.role, content: message.content };
@@ -63,7 +65,7 @@ export const updateConversation = async (playerResponse) => {
 
     updatedConversation = [
       ...updatedConversation.slice(0, 2),
-      ...updatedConversation.slice(2 + messageToRemove)
+      ...updatedConversation.slice(2 + messageToRemove),
     ];
   }
 
@@ -83,5 +85,4 @@ export const deleteConversation = async () => {
   });
 
   localStorage.removeItem("conversationId");
-  localStorage.removeItem("playerInfos");
 };

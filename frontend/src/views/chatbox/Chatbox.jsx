@@ -1,17 +1,21 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { motion } from "framer-motion";
 import ActionBar from "../../components/layout/ActionBar";
 import { initConversation } from "../../utils/localApi";
+import { ConversationContext } from "../../contexts/ConversationContext";
+import { PlayerContext } from "../../contexts/PlayerContext";
 import styles from "./Chatbox.module.scss";
 
 const Chatbox = () => {
-  const [conversation, setConversation] = useState([]);
+  const { conversation, setConversation } = useContext(ConversationContext);
+  const { playerInfos } = useContext(PlayerContext);
   const [isLoading, setIsLoading] = useState(true);
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
     setIsLoading(true);
-    initConversation().then((data) => {
+
+    initConversation(playerInfos).then((data) => {
       setConversation(data);
       setIsLoading(false);
     });

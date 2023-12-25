@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { ConversationContext } from "../../contexts/ConversationContext";
 import { PlayerContext } from "../../contexts/PlayerContext";
 import AttributeBadge from "../../components/badges/attributeBadge/AttributeBadge";
 import styles from "./Welcome.module.scss";
@@ -7,9 +8,21 @@ import styles from "./Welcome.module.scss";
 const Welcome = () => {
   const navigate = useNavigate();
   const { playerInfos, setPlayerInfos } = useContext(PlayerContext);
+  const { setConversation } = useContext(ConversationContext);
+
+  const clearOldConversation = () => {
+    localStorage.removeItem("playerInfos");
+    
+    setConversation([]);
+    setPlayerInfos({});
+  };
 
   const createConversation = async () => {
+    await clearOldConversation();
+
     localStorage.setItem("playerInfos", JSON.stringify(playerInfos));
+    setPlayerInfos(playerInfos);
+
     navigate("/conversation");
   };
 

@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { PlayerContext } from "../../contexts/PlayerContext";
+import { SidePanelContext } from "../../contexts/SidePanelContext";
 import {
   Box,
   VStack,
@@ -13,16 +14,8 @@ import {
 import CloseIcon from "../icons/CloseIcon";
 
 const SidePanel = () => {
-  const { isOpen, setIsOpen, playerInfos, setPlayerInfos } =
-    useContext(PlayerContext);
-
-  const togglePanel = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const closePanel = () => {
-    setIsOpen(false);
-  };
+  const { sidePanelState, toggleSidePanel } = useContext(SidePanelContext);
+  const { playerInfos, setPlayerInfos } = useContext(PlayerContext);
 
   const stopPropagation = (e) => {
     e.stopPropagation();
@@ -38,7 +31,7 @@ const SidePanel = () => {
 
   return (
     <>
-      {isOpen && (
+      {sidePanelState.isOpen && (
         <Box
           position="fixed"
           top="0"
@@ -47,11 +40,11 @@ const SidePanel = () => {
           h="100vh"
           bg="blackAlpha.400"
           zIndex="99"
-          onClick={closePanel}
+          onClick={() => toggleSidePanel()}
         />
       )}
 
-      {isOpen && (
+      {sidePanelState.isOpen && (
         <Box
           w={["100%", "60%", "40%"]}
           h="100vh"
@@ -71,13 +64,13 @@ const SidePanel = () => {
             <Button
               zIndex={100}
               position="absolute"
-              onClick={togglePanel}
+              onClick={() => toggleSidePanel()}
               transition="all 0.2s"
               borderRadius="full"
               bgColor="gray.900"
               color="white"
-              right="6"
-              top="6"
+              right="8"
+              top="9"
               p="4"
               _hover={{
                 cursor: "pointer",
@@ -90,12 +83,12 @@ const SidePanel = () => {
             <VStack spacing={5} overflowY="auto" h="full">
               <Flex p={5} width="full" h="full" justifyContent="space-evenly" flexDir={"column"} >
                 <Text fontSize={["lg", "xl"]} fontWeight="normal" color="white">
-                  Journal de l'aventurier
+                  Fiche personnage
                 </Text>
 
                 <Box mt={10}>
                   <Text mb={2} color="white">
-                    Barre de vie
+                    Points de vie
                   </Text>
                   <Progress
                     value={playerInfos.hp || 0}
@@ -109,7 +102,7 @@ const SidePanel = () => {
                 <VStack spacing={4} align="stretch" mt={10}>
                   <InputGroup display="flex" flexDir="column" mb={4}>
                     <Text mb={3} color="white">
-                      Votre quête active
+                      Quête active
                     </Text>
                     <Textarea
                       name="activeQuest"
@@ -128,7 +121,7 @@ const SidePanel = () => {
 
                   <InputGroup display="flex" flexDir="column">
                     <Text mb={3} color="white">
-                      Votre équipement
+                      Equipement
                     </Text>
                     <Textarea
                       name="equipment"
@@ -148,7 +141,7 @@ const SidePanel = () => {
 
                 <Box alignSelf={"flex-end"} mt="auto" width="100%">
                   <Button
-                    onClick={closePanel}
+                    onClick={() => toggleSidePanel()}
                     w="100%"
                     fontSize={["xs", "sm"]}
                     color="white"
