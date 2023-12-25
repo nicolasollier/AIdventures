@@ -15,7 +15,9 @@ export const postToOpenAI = async (messages) => {
     const response = await openai.post("", {
       model: "gpt-3.5-turbo",
       messages: messages,
+      max_tokens: 200,
     });
+
     return response.data.choices[0].message;
   } catch (error) {
     console.error(error);
