@@ -21,7 +21,7 @@ LORE:
 REGLES:
   Utilisez subtilement les informations sur le joueur et le lore pour établir le cadre initial de l'aventure.
   Situez le joueur dans un lieu et une situation initiale.
-  Répondez en respectant strictement une limite de 500 caractères.
+  Répondez en respectant strictement une limite de 200 tokens (max_tokens).
   Évitez toute incohérence ou anachronisme.
   Intégrez l'échec comme un élément narratif positif.
   Respectez l'autonomie du joueur en ne proposant pas de choix à sa place.
