@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ConversationContext } from "../../contexts/ConversationContext";
 import { PlayerContext } from "../../contexts/PlayerContext";
+import { races, classes, alignments, genders } from "../../utils/characterAttributes";
 import AttributeBadge from "../../components/badges/attributeBadge/AttributeBadge";
 import styles from "./Welcome.module.scss";
 
@@ -24,31 +25,6 @@ const Welcome = () => {
     setPlayerInfos(playerInfos);
 
     navigate("/conversation");
-  };
-
-  const races = {
-    elfe: "Elfe",
-    nain: "Nain",
-    humain: "Humain",
-    orque: "Orc",
-  };
-
-  const classes = {
-    guerrier: "Guerrier",
-    mage: "Mage",
-    voleur: "Voleur",
-    prêtre: "Prêtre",
-  };
-
-  const alignments = {
-    bon: "Bon",
-    neutre: "Neutre",
-    mauvais: "Mauvais",
-  };
-
-  const genders = {
-    femme: "Femme",
-    homme: "Homme",
   };
 
   const isFormInvalid = () => {
