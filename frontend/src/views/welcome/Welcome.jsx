@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ConversationContext } from "../../contexts/ConversationContext";
 import { PlayerContext } from "../../contexts/PlayerContext";
-import { races, classes, alignments, genders } from "../../utils/characterAttributes";
+import { races, classes, alignments, genders, definePlayerStartingKit } from "../../utils/characterAttributes";
 import AttributeBadge from "../../components/badges/attributeBadge/AttributeBadge";
 import styles from "./Welcome.module.scss";
 
@@ -23,6 +23,7 @@ const Welcome = () => {
 
     localStorage.setItem("playerInfos", JSON.stringify(playerInfos));
     setPlayerInfos(playerInfos);
+    definePlayerStartingKit(setPlayerInfos, playerInfos);
 
     navigate("/conversation");
   };
