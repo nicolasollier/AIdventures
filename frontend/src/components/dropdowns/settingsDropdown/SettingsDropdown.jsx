@@ -2,13 +2,17 @@ import { useState, useEffect, useRef, useContext } from "react";
 import { logoutUser } from "../../../utils/authApi";
 import { deleteConversation } from "../../../utils/localApi";
 import { useNavigate } from "react-router-dom";
+import { PlayerContext } from "../../../contexts/PlayerContext";
 import { SidePanelContext } from "../../../contexts/SidePanelContext";
 import SettingsIcon from "../../icons/SettingsIcon";
 import styles from "./SettingsDropdown.module.scss";
 
 const SettingsDropdown = () => {
-  const { toggleSidePanel } = useContext(SidePanelContext);
   const navigate = useNavigate();
+
+  const { toggleSidePanel } = useContext(SidePanelContext);
+  const { clearPlayerInfos } = useContext(PlayerContext);
+  
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -20,6 +24,7 @@ const SettingsDropdown = () => {
 
   const handleRemoveConversation = async () => {
     setIsOpen(false);
+    clearPlayerInfos();
     await deleteConversation();
     navigate("/");
   };

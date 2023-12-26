@@ -14,9 +14,23 @@ export const PlayerContextProvider = ({ children }) => {
     alignment: "",
   });
 
+  const clearPlayerInfos = () => {
+    localStorage.removeItem("playerInfos");
+    setPlayerInfos({
+      hp: 100,
+      activeQuest: "N/A",
+      equipment: "N/A",
+      name: "",
+      race: "",
+      gender: "",
+      class: "",
+      alignment: "",
+    });
+  };
+
   return (
     <PlayerContext.Provider
-      value={{ playerInfos, setPlayerInfos }}
+      value={{ playerInfos, setPlayerInfos, clearPlayerInfos }}
     >
       {children}
     </PlayerContext.Provider>

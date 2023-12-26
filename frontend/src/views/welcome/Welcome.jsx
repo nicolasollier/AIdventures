@@ -8,14 +8,12 @@ import styles from "./Welcome.module.scss";
 
 const Welcome = () => {
   const navigate = useNavigate();
-  const { playerInfos, setPlayerInfos } = useContext(PlayerContext);
-  const { setConversation } = useContext(ConversationContext);
+  const { playerInfos, setPlayerInfos, clearPlayerInfos } = useContext(PlayerContext);
+  const { clearConversation } = useContext(ConversationContext);
 
   const clearOldConversation = () => {
-    localStorage.removeItem("playerInfos");
-    
-    setConversation([]);
-    setPlayerInfos({});
+    clearConversation();
+    clearPlayerInfos();
   };
 
   const createConversation = async () => {
