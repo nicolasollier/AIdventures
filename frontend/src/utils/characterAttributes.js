@@ -60,8 +60,7 @@ const definePlayerStartingKit = (setPlayerInfos, playerInfos) => {
   );
 
   const { race, class: playerClass, alignment, gender } = lowerCasePlayerInfos;
-  console.log(race, playerClass, alignment, gender);
-
+  
   if (playerClass === "guerrier") {
     const defaultEquipment =
       "une cotte de maille et un bouclier, une épée longue";
